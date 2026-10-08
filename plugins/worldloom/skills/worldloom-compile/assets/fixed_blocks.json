@@ -1,0 +1,399 @@
+{
+ "topLevelKeys": [
+  "scenarioVersion",
+  "title",
+  "description",
+  "prompt",
+  "tags",
+  "context",
+  "ephemeralContext",
+  "placeholders",
+  "settings",
+  "lorebook",
+  "author",
+  "storyContextConfig",
+  "contextDefaults",
+  "phraseBiasGroups",
+  "bannedSequenceGroups",
+  "messageSettings"
+ ],
+ "settings": {
+  "parameters": {
+   "textGenerationSettingsVersion": 8,
+   "temperature": 1.2,
+   "max_length": 256,
+   "min_length": 1,
+   "top_k": 90,
+   "top_p": 0.92,
+   "top_a": 1,
+   "typical_p": 1,
+   "tail_free_sampling": 1,
+   "repetition_penalty": 0,
+   "repetition_penalty_range": 0,
+   "repetition_penalty_slope": 0,
+   "repetition_penalty_frequency": 0.3,
+   "repetition_penalty_presence": 0.4,
+   "repetition_penalty_default_whitelist": false,
+   "cfg_scale": 1,
+   "cfg_uc": "",
+   "phrase_rep_pen": "medium",
+   "top_g": 0,
+   "mirostat_tau": 0,
+   "mirostat_lr": 1,
+   "math1_temp": 0,
+   "math1_quad": 0,
+   "math1_quad_entropy_scale": 0,
+   "min_p": 0,
+   "order": [
+    {
+     "id": "temperature",
+     "enabled": true
+    },
+    {
+     "id": "top_k",
+     "enabled": true
+    },
+    {
+     "id": "top_p",
+     "enabled": true
+    },
+    {
+     "id": "min_p",
+     "enabled": false
+    }
+   ]
+  },
+  "preset": "38454893-298c-4908-9ad4-3d8e28fc6653",
+  "trimResponses": true,
+  "banBrackets": true,
+  "defaultBias": true,
+  "prefix": "vanilla",
+  "dynamicPenaltyRange": false,
+  "prefixMode": 0,
+  "mode": 0,
+  "model": "glm-4-6"
+ },
+ "defaultEntry": {
+  "text": "",
+  "contextConfig": {
+   "prefix": "----\n",
+   "suffix": "\n",
+   "tokenBudget": 1,
+   "reservedTokens": 0,
+   "budgetPriority": 400,
+   "trimDirection": "trimBottom",
+   "insertionType": "newline",
+   "maximumTrimType": "sentence",
+   "insertionPosition": -1
+  },
+  "lastUpdatedAt": 1727192381195,
+  "displayName": "New Lorebook Entry",
+  "id": "125f8dfa-a2a3-492c-b92f-c38cbf7aa8a2",
+  "keys": [],
+  "searchRange": 1000,
+  "enabled": true,
+  "forceActivation": false,
+  "keyRelative": false,
+  "nonStoryActivatable": false,
+  "category": "",
+  "loreBiasGroups": [
+   {
+    "phrases": [],
+    "ensureSequenceFinish": false,
+    "generateOnce": true,
+    "bias": 0,
+    "enabled": true,
+    "whenInactive": false
+   }
+  ],
+  "advancedConditions": []
+ },
+ "memoryContextConfig": {
+  "prefix": "",
+  "suffix": "\n",
+  "tokenBudget": 1,
+  "reservedTokens": 0,
+  "budgetPriority": 800,
+  "trimDirection": "trimBottom",
+  "insertionType": "newline",
+  "maximumTrimType": "sentence",
+  "insertionPosition": 0
+ },
+ "authorsNoteContextConfig": {
+  "prefix": "",
+  "suffix": "\n",
+  "tokenBudget": 1,
+  "reservedTokens": 1,
+  "budgetPriority": -400,
+  "trimDirection": "trimBottom",
+  "insertionType": "newline",
+  "maximumTrimType": "sentence",
+  "insertionPosition": -4
+ },
+ "storyContextConfig": {
+  "prefix": "***\n",
+  "suffix": "",
+  "tokenBudget": 1,
+  "reservedTokens": 512,
+  "budgetPriority": 0,
+  "trimDirection": "trimTop",
+  "insertionType": "newline",
+  "maximumTrimType": "sentence",
+  "insertionPosition": -1,
+  "allowInsertionInside": true
+ },
+ "contextDefaults": {
+  "ephemeralDefaults": [
+   {
+    "text": "",
+    "contextConfig": {
+     "prefix": "",
+     "suffix": "\n",
+     "tokenBudget": 1,
+     "reservedTokens": 1,
+     "budgetPriority": -10000,
+     "trimDirection": "doNotTrim",
+     "insertionType": "newline",
+     "maximumTrimType": "newline",
+     "insertionPosition": -2
+    },
+    "startingStep": 1,
+    "delay": 0,
+    "duration": 1,
+    "repeat": false,
+    "reverse": false
+   }
+  ],
+  "loreDefaults": [
+   {
+    "text": "",
+    "contextConfig": {
+     "prefix": "----\n",
+     "suffix": "\n",
+     "tokenBudget": 1,
+     "reservedTokens": 0,
+     "budgetPriority": 400,
+     "trimDirection": "trimBottom",
+     "insertionType": "newline",
+     "maximumTrimType": "sentence",
+     "insertionPosition": -1
+    },
+    "lastUpdatedAt": 1727192381195,
+    "displayName": "New Lorebook Entry",
+    "id": "125f8dfa-a2a3-492c-b92f-c38cbf7aa8a2",
+    "keys": [],
+    "searchRange": 1000,
+    "enabled": true,
+    "forceActivation": false,
+    "keyRelative": false,
+    "nonStoryActivatable": false,
+    "category": "",
+    "loreBiasGroups": [
+     {
+      "phrases": [],
+      "ensureSequenceFinish": false,
+      "generateOnce": true,
+      "bias": 0,
+      "enabled": true,
+      "whenInactive": false
+     }
+    ],
+    "advancedConditions": []
+   }
+  ]
+ },
+ "commaBiasGroup": {
+  "phrases": [
+   {
+    "sequences": [],
+    "sequence": ",",
+    "type": 2
+   }
+  ],
+  "ensureSequenceFinish": false,
+  "generateOnce": true,
+  "bias": -1.75,
+  "enabled": true,
+  "whenInactive": false
+ },
+ "bannedSequenceGroups": [
+  {
+   "sequences": [],
+   "enabled": true
+  }
+ ],
+ "roles": {
+  "core_memory": {
+   "forceActivation": true,
+   "enabled": true,
+   "trimDirection": "doNotTrim",
+   "searchRange": 1000,
+   "budgetPriority": 800
+  },
+  "voice_guard": {
+   "forceActivation": true,
+   "enabled": true,
+   "trimDirection": "doNotTrim",
+   "searchRange": 1000,
+   "budgetPriority": 800
+  },
+  "characters": {
+   "forceActivation": true,
+   "enabled": true,
+   "trimDirection": "doNotTrim",
+   "searchRange": 1000,
+   "budgetPriority": 800
+  },
+  "story_so_far": {
+   "forceActivation": true,
+   "enabled": true,
+   "trimDirection": "doNotTrim",
+   "searchRange": 1000,
+   "budgetPriority": 700
+  },
+  "glossary": {
+   "forceActivation": true,
+   "enabled": true,
+   "trimDirection": "trimBottom",
+   "searchRange": 1000,
+   "budgetPriority": 600
+  },
+  "tier1_character": {
+   "forceActivation": false,
+   "enabled": true,
+   "trimDirection": "trimBottom",
+   "budgetPriority": 500,
+   "searchRange": 4000
+  },
+  "tier1_other": {
+   "forceActivation": false,
+   "enabled": true,
+   "trimDirection": "trimBottom",
+   "budgetPriority": 500,
+   "searchRange": 1000
+  },
+  "tier2_character": {
+   "forceActivation": false,
+   "enabled": true,
+   "trimDirection": "trimBottom",
+   "budgetPriority": 450,
+   "searchRange": 4000
+  },
+  "tier2_other": {
+   "forceActivation": false,
+   "enabled": true,
+   "trimDirection": "trimBottom",
+   "budgetPriority": 450,
+   "searchRange": 1000
+  },
+  "operator_reference": {
+   "forceActivation": false,
+   "enabled": false,
+   "trimDirection": "trimBottom",
+   "budgetPriority": 400,
+   "searchRange": 1000
+  }
+ },
+ "fixedNames": {
+  "core_memory": "Core Memory",
+  "voice_guard": "Voice Guard",
+  "characters": "Characters",
+  "story_so_far": "Story So Far",
+  "glossary": "Glossary",
+  "operator_reference": "Operator Reference"
+ },
+ "voiceGuard": [
+  "Voice Guard",
+  "Type: memory",
+  "Forbidden: No character speaks in analytical, clinical, technical, or bureaucratic language. Nobody says data, data point, variable, parameter, empirical, physiological, psychological, optimal, efficiency, probability, percentage, metric, protocol, or methodology in dialogue.",
+  "Framing: Nobody frames a feeling, a person, an ordinary choice, or a moment of closeness as observation, measurement, study, experiment, analysis, or a category of anything.",
+  "Plain: When a character means something simple, they say the simple thing. Precision shows as fewer words, never longer ones. Trained, highborn, or highly educated characters still speak plainly about ordinary things and use contractions.",
+  "Distinct: No two characters share a register. A line that could be moved to another speaker unnoticed is wrong for both."
+ ],
+ "prefill": {
+  "head": [
+   "Understood. I will write to these standards in every POV:",
+   "**Flow (primary):**",
+   "- Every sentence connects causally: action triggers response, response reveals context",
+   "- No choppy runs: three short declaratives in a row means the thread is lost",
+   "- Show through concrete action and sensory detail, never named emotions or internal interpretation",
+   "**Voice:**",
+   "- Keep each character's voice plain and distinct - no analytical, clinical, or measured phrasing in dialogue, and never frame a person, a feeling, or an ordinary moment as data, observation, or study",
+   "**Critical prohibitions:**",
+   "- No \"not X but Y\" in any POV",
+   "- No sensation metaphors (sent heat or electricity through, pulse quickening, breath hitching) and no voice quality as emotion (huskier, breathier, throaty)",
+   "- No body part + emotion (eyes sparkled with, jaw clenched in); no hedging (kind of, seemed to, appeared to)",
+   "- Appositive modifiers are absolutely forbidden: [action], [possessive] [noun] [modifier]. *No* \"Sarah nodded, her gaze hard\". *No* \"I asked, my voice a low murmur\". If this happens, I have failed.",
+   "**Continuation:**"
+  ],
+  "defaultContinuation": [
+   "Continue in the exact established voice, tone, and style",
+   "Maintain all character consistencies and ongoing plot threads",
+   "Develop the narrative at natural pace without rushing toward conclusions"
+  ],
+  "tail": [
+   "---",
+   "[Story continues:]"
+  ],
+  "voiceLine": "- Keep each character's voice plain and distinct - no analytical, clinical, or measured phrasing in dialogue, and never frame a person, a feeling, or an ordinary moment as data, observation, or study",
+  "appositiveLine": "- Appositive modifiers are absolutely forbidden: [action], [possessive] [noun] [modifier]. *No* \"Sarah nodded, her gaze hard\". *No* \"I asked, my voice a low murmur\". If this happens, I have failed."
+ },
+ "operatorReferenceWarning": "OPERATOR REFERENCE ONLY - DO NOT ADD KEYS OR TRIGGERS TO THIS ENTRY. If this entry is ever given a keyword, its contents will enter the story and spoil it.",
+ "systemPrompt": {
+  "firstLine": "You are a GLM-4.6-based LLM for creative writing, text adventures, and roleplay. No tools, no web access: pure text generation.",
+  "headers": [
+   "## Core Rule",
+   "## Narrative Flow",
+   "## Execution Standards",
+   "## Prohibited Patterns",
+   "## Appositive Modifiers",
+   "## Content Structure",
+   "## Banned Words",
+   "## Voice Discipline",
+   "## Dynamic Event System",
+   "## Before Output"
+  ],
+  "ozoneLine": "- NEVER use: ozone, testament",
+  "analyticalLine": "- NEVER use: statistically, statistical, probability, variables, parameters, optimal, optimize, methodology, metrics, efficiency, protocols, calibration, quantify, percentile, correlates, allocation, assessment, insufficient data",
+  "namesLine": "- Names: NEVER Elara, Lyra, Thorne, Valerius, Kael(en), Ava, Marcus"
+ },
+ "bannedNames": [
+  "Elara",
+  "Lyra",
+  "Thorne",
+  "Valerius",
+  "Kael",
+  "Kaelen",
+  "Ava",
+  "Marcus"
+ ],
+ "tiers": {
+  "Tablet": {
+   "AN": 300,
+   "SP": 2000,
+   "LB": 2200,
+   "CM": [
+    250,
+    350
+   ]
+  },
+  "Scroll": {
+   "AN": 450,
+   "SP": 2800,
+   "LB": 3300,
+   "CM": [
+    400,
+    500
+   ]
+  },
+  "Opus": {
+   "AN": 900,
+   "SP": 4000,
+   "LB": 7000,
+   "CM": [
+    800,
+    1000
+   ]
+  }
+ }
+}

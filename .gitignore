@@ -1,0 +1,12 @@
+# generated stories and build output
+worldloom-output/
+dist/
+__pycache__/
+*.pyc
+
+# community scenarios by other authors; not ours to redistribute
+worldloom_source/Sages_Simple_Story_Setup_GLM.scenario
+worldloom_source/Blackfeather_Estate.scenario
+
+.env
+.claude/settings.local.json

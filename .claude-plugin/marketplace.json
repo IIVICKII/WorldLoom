@@ -1,0 +1,12 @@
+{
+  "name": "worldloom-local",
+  "description": "Local marketplace for the Worldloom plugin.",
+  "owner": {"name": "IIVICKII"},
+  "plugins": [
+    {
+      "name": "worldloom",
+      "source": "./plugins/worldloom",
+      "description": "Turns a story premise into a validated NovelAI (GLM-4.6) .scenario in one run: Story Bible, editorial critique, config compile."
+    }
+  ]
+}

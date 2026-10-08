@@ -1,0 +1,695 @@
+{
+  "scenarioVersion": 3,
+  "title": "The Quiet Ledger",
+  "description": "A bookkeeper hired to audit a merchant house's accounts finds its new head reading every contract twice and hoping nobody notices how lost he is. The contract renewals are three weeks away.",
+  "prompt": "The rain had followed me all the way up the hill, and it was still dripping off my satchel strap when Hollis Bray opened the side door of House Varlen.\n\"Miss Fenlow. You found us.\" Hollis stepped back to let me in and took my wet coat before I could argue. \"I did say the front steps were slippery. Nobody listens to the steward.\"\n\"I listened,\" I said, and wiped my boots twice on the mat to prove it. \"I just came the long way so I could look at your warehouses first.\"\nHe laughed at that and led me down a corridor of good rugs laid over cold stone. A portrait gallery opened on the left. One hook near the end held no painting, and I counted the frames without meaning to.\n\"There was a winter, oh, forty years back,\" Hollis said, and slowed so I could keep pace, \"when the old master kept the ledgers in the pantry because it was the only room with a lock that worked. We found the spring accounts under a sack of onions.\"\n\"Were they right?\" I said, and shoved a slipping pin back into my hair.\nHollis stopped at a door with a brass plate that read COUNTING ROOM. He kept his hand on the handle a moment longer than he needed to. \"They were right,\" he said. \"I'd like to be able to say the same this year.\"\nHe knocked once and went in. A tall man sat at the desk with a contract held close to his face, and his lips moved as he read. A good coat hung off his shoulders and stopped short of his wrists. He looked up, saw me, and stood so fast that his chair rocked back against the shelves.\n\"Hollis,\" the man said, and set the contract down face first. \"Honestly, you could warn a person. Look, if this is about the window tax, I've already paid it. Twice, I think.\"\n\"This is Miss Mira Fenlow, young sir.\" Hollis folded his hands behind his back. \"A bookkeeper. I've engaged her to go through the house accounts before the council sits.\"\nJosselin Varlen looked from Hollis to me and back. The tips of his ears went red. He tugged at one cuff, then the other. \"You've engaged her,\" he said. \"To audit my books. Without mentioning it to the person whose books they are.\"\n\"Right,\" I said, and set my satchel on the corner of his desk because nobody had offered me a chair. \"Would you like me to come back once you've both decided whether I work here?\"\nJosselin opened his mouth and closed it again. Then he laughed and pulled the second chair out from the wall with his foot. \"No. Sit. Please. I've been reading that contract since breakfast, and I'm fairly sure it's reading me back.\"\nHollis was already halfway to the door. \"I'll bring tea,\" he said, and the latch clicked shut behind him.\nThe counting room smelled of dust and lamp oil and wet wool. Josselin pushed the contract across the desk toward me with two fingers and waited for me to pick it up.",
+  "tags": [
+    "cozy fantasy",
+    "slow-burn romance",
+    "light political intrigue"
+  ],
+  "context": [
+    {
+      "text": "[ Author: Becky Chambers, Natasha Pulley; Title: The Quiet Ledger; Tags: slow burn, small town, harbour, ledgers, rain, warm, witty; Genre: cozy fantasy, slow-burn romance, light political intrigue ]",
+      "contextConfig": {
+        "prefix": "",
+        "suffix": "\n",
+        "tokenBudget": 1,
+        "reservedTokens": 0,
+        "budgetPriority": 800,
+        "trimDirection": "trimBottom",
+        "insertionType": "newline",
+        "maximumTrimType": "sentence",
+        "insertionPosition": 0
+      }
+    },
+    {
+      "text": "[ Write in a style that conveys the following: warm, dry, wry, unhurried, tactile, gently comic ]\n[ Narration: lingers on small domestic textures (ink, damp wool, old paper, rain on glass) and lets comedy come from mismatched expectations, never slapstick. Rhythm is easy and conversational; tension rises through deadlines and small embarrassments, never danger. Closeness builds through kindnesses noticed and left unnamed. ]\n[ Dialogue: people speak plainly, even about ledgers and contracts, and no two characters share a register. ]",
+      "contextConfig": {
+        "prefix": "",
+        "suffix": "\n",
+        "tokenBudget": 1,
+        "reservedTokens": 1,
+        "budgetPriority": -400,
+        "trimDirection": "trimBottom",
+        "insertionType": "newline",
+        "maximumTrimType": "sentence",
+        "insertionPosition": -4
+      }
+    }
+  ],
+  "ephemeralContext": [],
+  "placeholders": [],
+  "settings": {
+    "parameters": {
+      "textGenerationSettingsVersion": 8,
+      "temperature": 1.2,
+      "max_length": 256,
+      "min_length": 1,
+      "top_k": 90,
+      "top_p": 0.92,
+      "top_a": 1,
+      "typical_p": 1,
+      "tail_free_sampling": 1,
+      "repetition_penalty": 0,
+      "repetition_penalty_range": 0,
+      "repetition_penalty_slope": 0,
+      "repetition_penalty_frequency": 0.3,
+      "repetition_penalty_presence": 0.4,
+      "repetition_penalty_default_whitelist": false,
+      "cfg_scale": 1,
+      "cfg_uc": "",
+      "phrase_rep_pen": "medium",
+      "top_g": 0,
+      "mirostat_tau": 0,
+      "mirostat_lr": 1,
+      "math1_temp": 0,
+      "math1_quad": 0,
+      "math1_quad_entropy_scale": 0,
+      "min_p": 0,
+      "order": [
+        {
+          "id": "temperature",
+          "enabled": true
+        },
+        {
+          "id": "top_k",
+          "enabled": true
+        },
+        {
+          "id": "top_p",
+          "enabled": true
+        },
+        {
+          "id": "min_p",
+          "enabled": false
+        }
+      ]
+    },
+    "preset": "38454893-298c-4908-9ad4-3d8e28fc6653",
+    "trimResponses": true,
+    "banBrackets": true,
+    "defaultBias": true,
+    "prefix": "vanilla",
+    "dynamicPenaltyRange": false,
+    "prefixMode": 0,
+    "mode": 0,
+    "model": "glm-4-6"
+  },
+  "lorebook": {
+    "lorebookVersion": 6,
+    "entries": [
+      {
+        "text": "Core Memory\nType: memory\nWorld: Aldwick, a slow-river trading town three days from the capital by cart; trade runs through it rather than to it. Mornings smell of tar and harbour bread; afternoons belong to the warehouse bells.\nRules: Magic is a licensed trade skill anyone can learn at the guild hall for a fee; most people know two or three practical cantrips. No spell can alter memory, compel belief, or force loyalty. Standing runs on land, contracts, and coin.\nStakes: House Varlen holds the river warehouse contracts; the trade council renews them each autumn, and half of Aldwick's trading families depend on them.\nProtagonist: Mira Fenlow, a bookkeeper of small, safe ledgers, auditing House Varlen's books.\nKey Relationships: Josselin Varlen inherited the house eight months ago when his cousin left abruptly; he leans on Hollis Bray, the steward of thirty years. Perrin Ashgrove, a fair rival trader, wants the contracts.",
+        "contextConfig": {
+          "prefix": "----\n",
+          "suffix": "\n",
+          "tokenBudget": 1,
+          "reservedTokens": 0,
+          "budgetPriority": 800,
+          "trimDirection": "doNotTrim",
+          "insertionType": "newline",
+          "maximumTrimType": "sentence",
+          "insertionPosition": -1
+        },
+        "lastUpdatedAt": 1727192381195,
+        "displayName": "Core Memory",
+        "id": "00000000-0000-4000-8000-000000000001",
+        "keys": [],
+        "searchRange": 1000,
+        "enabled": true,
+        "forceActivation": true,
+        "keyRelative": false,
+        "nonStoryActivatable": false,
+        "category": "",
+        "loreBiasGroups": [
+          {
+            "phrases": [],
+            "ensureSequenceFinish": false,
+            "generateOnce": true,
+            "bias": 0,
+            "enabled": true,
+            "whenInactive": false
+          }
+        ],
+        "advancedConditions": []
+      },
+      {
+        "text": "Voice Guard\nType: memory\nForbidden: No character speaks in analytical, clinical, technical, or bureaucratic language. Nobody says data, data point, variable, parameter, empirical, physiological, psychological, optimal, efficiency, probability, percentage, metric, protocol, or methodology in dialogue. Nobody talks like a contract: no heretofore, pursuant, or stipulate.\nFraming: Nobody frames a feeling, a person, an ordinary choice, or a moment of closeness as observation, measurement, study, experiment, analysis, or a category of anything.\nPlain: When a character means something simple, they say the simple thing. Precision shows as fewer words, never longer ones. Trained, highborn, or highly educated characters still speak plainly about ordinary things and use contractions.\nDistinct: No two characters share a register. A line that could be moved to another speaker unnoticed is wrong for both.",
+        "contextConfig": {
+          "prefix": "----\n",
+          "suffix": "\n",
+          "tokenBudget": 1,
+          "reservedTokens": 0,
+          "budgetPriority": 800,
+          "trimDirection": "doNotTrim",
+          "insertionType": "newline",
+          "maximumTrimType": "sentence",
+          "insertionPosition": -1
+        },
+        "lastUpdatedAt": 1727192381195,
+        "displayName": "Voice Guard",
+        "id": "00000000-0000-4000-8000-000000000002",
+        "keys": [],
+        "searchRange": 1000,
+        "enabled": true,
+        "forceActivation": true,
+        "keyRelative": false,
+        "nonStoryActivatable": false,
+        "category": "",
+        "loreBiasGroups": [
+          {
+            "phrases": [],
+            "ensureSequenceFinish": false,
+            "generateOnce": true,
+            "bias": 0,
+            "enabled": true,
+            "whenInactive": false
+          }
+        ],
+        "advancedConditions": []
+      },
+      {
+        "text": "Characters:\nMira Fenlow: woman, 26, bookkeeper auditing House Varlen; sturdy, chipped front tooth, brown hair in a slipping knot; taps a pencil against her teeth\nJosselin Varlen: man, 29, head of House Varlen; tall and long-limbed, crooked nose, coats short in the sleeve; fidgets with his cuffs\nHollis Bray: man, 61, steward of House Varlen; grey and unhurried, a ring of every key in the house; tells stories about the house\nPerrin Ashgrove: man, 44, owner of Aldwick's second-largest warehouse; neat, well-dressed, easy smile; compliments first, point second",
+        "contextConfig": {
+          "prefix": "----\n",
+          "suffix": "\n",
+          "tokenBudget": 1,
+          "reservedTokens": 0,
+          "budgetPriority": 800,
+          "trimDirection": "doNotTrim",
+          "insertionType": "newline",
+          "maximumTrimType": "sentence",
+          "insertionPosition": -1
+        },
+        "lastUpdatedAt": 1727192381195,
+        "displayName": "Characters",
+        "id": "00000000-0000-4000-8000-000000000003",
+        "keys": [],
+        "searchRange": 1000,
+        "enabled": true,
+        "forceActivation": true,
+        "keyRelative": false,
+        "nonStoryActivatable": false,
+        "category": "",
+        "loreBiasGroups": [
+          {
+            "phrases": [],
+            "ensureSequenceFinish": false,
+            "generateOnce": true,
+            "bias": 0,
+            "enabled": true,
+            "whenInactive": false
+          }
+        ],
+        "advancedConditions": []
+      },
+      {
+        "text": "Story So Far\nType: memory\nEarlier:\n- Last week Hollis Bray hired Mira to audit the books, because something in them felt wrong to him; Josselin was not asked.\n- This month Perrin Ashgrove began asking House Varlen's client families whether they are happy with their service.\nUpcoming (not happened yet):\n- In three weeks the trade council meets to renew the river warehouse contracts.",
+        "contextConfig": {
+          "prefix": "----\n",
+          "suffix": "\n",
+          "tokenBudget": 1,
+          "reservedTokens": 0,
+          "budgetPriority": 700,
+          "trimDirection": "doNotTrim",
+          "insertionType": "newline",
+          "maximumTrimType": "sentence",
+          "insertionPosition": -1
+        },
+        "lastUpdatedAt": 1727192381195,
+        "displayName": "Story So Far",
+        "id": "00000000-0000-4000-8000-000000000004",
+        "keys": [],
+        "searchRange": 1000,
+        "enabled": true,
+        "forceActivation": true,
+        "keyRelative": false,
+        "nonStoryActivatable": false,
+        "category": "",
+        "loreBiasGroups": [
+          {
+            "phrases": [],
+            "ensureSequenceFinish": false,
+            "generateOnce": true,
+            "bias": 0,
+            "enabled": true,
+            "whenInactive": false
+          }
+        ],
+        "advancedConditions": []
+      },
+      {
+        "text": "Glossary:\nAldwick Trade Council: the trading families' council; renews the warehouse contracts each autumn, usually a formality\nGuild Hall: where anyone can pay to learn practical cantrips",
+        "contextConfig": {
+          "prefix": "----\n",
+          "suffix": "\n",
+          "tokenBudget": 1,
+          "reservedTokens": 0,
+          "budgetPriority": 600,
+          "trimDirection": "trimBottom",
+          "insertionType": "newline",
+          "maximumTrimType": "sentence",
+          "insertionPosition": -1
+        },
+        "lastUpdatedAt": 1727192381195,
+        "displayName": "Glossary",
+        "id": "00000000-0000-4000-8000-000000000005",
+        "keys": [],
+        "searchRange": 1000,
+        "enabled": true,
+        "forceActivation": true,
+        "keyRelative": false,
+        "nonStoryActivatable": false,
+        "category": "",
+        "loreBiasGroups": [
+          {
+            "phrases": [],
+            "ensureSequenceFinish": false,
+            "generateOnce": true,
+            "bias": 0,
+            "enabled": true,
+            "whenInactive": false
+          }
+        ],
+        "advancedConditions": []
+      },
+      {
+        "text": "Mira Fenlow\nType: character\nAge: 26\nGender: female\nOccupation: bookkeeper, hired to audit House Varlen's books\nBuild: five foot four, sturdy and square-shouldered\nFace: round, freckled, a small chip in one front tooth\nHair: thick brown, pinned in a knot that slips by noon\nEyes: hazel\nClothing: grey wool work dress, sleeves rolled; leather satchel worn pale at the strap; ink on her right hand\nMannerisms: straight at a desk, slouched everywhere else; taps a pencil against her teeth; shoves pins back without looking\nPersonality: careful, observant, wry, quietly proud of good work, unsure it counts\nWants: to be trusted with something that matters\nFears: that carefulness is the only interesting thing about her\nUnder pressure: goes still and asks one plain question\nVoice: Warm, dry, and quick by default: short plain sentences, contractions, answers a question with a smaller, sharper one. Says \"Right,\" alone to buy a second before something hard, at most once a scene. Flattered, she jokes about her handwriting. Truly worried, she drops to very few words and stops joking. Talks ledgers only at the desk. Never says variance, liability, reconcile, or projection away from the ledgers; never sounds like a clerk reading a report.\nQuote: \"You've got three different inks in this book. Did somebody run out, or did somebody hide something?\"\nHistory: kept her father's shop accounts before he could afford a clerk; five years of small, safe ledgers\nRelationships: works for Hollis Bray, whom she likes; knows Josselin and Perrin only by reputation",
+        "contextConfig": {
+          "prefix": "----\n",
+          "suffix": "\n",
+          "tokenBudget": 1,
+          "reservedTokens": 0,
+          "budgetPriority": 500,
+          "trimDirection": "trimBottom",
+          "insertionType": "newline",
+          "maximumTrimType": "sentence",
+          "insertionPosition": -1
+        },
+        "lastUpdatedAt": 1727192381195,
+        "displayName": "Mira Fenlow",
+        "id": "00000000-0000-4000-8000-000000000006",
+        "keys": [
+          "mira",
+          "fenlow",
+          "bookkeeper",
+          "auditor"
+        ],
+        "searchRange": 4000,
+        "enabled": true,
+        "forceActivation": false,
+        "keyRelative": false,
+        "nonStoryActivatable": false,
+        "category": "",
+        "loreBiasGroups": [
+          {
+            "phrases": [],
+            "ensureSequenceFinish": false,
+            "generateOnce": true,
+            "bias": 0,
+            "enabled": true,
+            "whenInactive": false
+          }
+        ],
+        "advancedConditions": []
+      },
+      {
+        "text": "Josselin Varlen\nType: character\nAge: 29\nGender: male\nOccupation: head of House Varlen for eight months; formerly a river-barge clerk\nBuild: six foot one, long-limbed, moves like he expects to hit doorframes\nFace: narrow and pale, nose once broken and set crooked, lopsided grin; ears flush red first; fishing-hook scar on the back of his left hand\nHair: black, worn too long, curls in the rain\nEyes: grey\nClothing: his cousin's good coats, short in the sleeve, over plain shirts of his own\nMannerisms: clasps his hands behind his back to look like a head of house; fidgets with his cuffs when he forgets\nPersonality: kind, quick to laugh, hides worry behind jokes\nWants: not to be found out before he finds his footing\nFears: that everyone already suspects and is waiting to watch him fail; doubts his right to the chair\nUnder pressure: makes a joke to buy a second to think\nVoice: Easy, chatty, and self-deprecating by default: longer sentences that wander and land on a joke, lots of \"honestly\" and \"look\". Answers a formal question with a joke first and the real answer second, at most twice a scene. Called \"Master Varlen\", he goes stiff and over-polite, then laughs at himself. Truly afraid, the jokes stop and he goes quiet and plain. Never uses contract language he doesn't understand (heretofore, pursuant, the party of the first part); never sounds like the cousin whose coats he wears.\nQuote: \"Honestly, I've read this clause four times and I think it's about barrels. Look, it might be about barrels.\"\nHistory: inherited the house by distance of blood when his cousin left abruptly; understands the contracts less than he lets on\nRelationships: leans on Hollis Bray and half fears disappointing him; has dined with Perrin Ashgrove twice and liked him",
+        "contextConfig": {
+          "prefix": "----\n",
+          "suffix": "\n",
+          "tokenBudget": 1,
+          "reservedTokens": 0,
+          "budgetPriority": 500,
+          "trimDirection": "trimBottom",
+          "insertionType": "newline",
+          "maximumTrimType": "sentence",
+          "insertionPosition": -1
+        },
+        "lastUpdatedAt": 1727192381195,
+        "displayName": "Josselin Varlen",
+        "id": "00000000-0000-4000-8000-000000000007",
+        "keys": [
+          "josselin",
+          "master varlen",
+          "head of house",
+          "young sir"
+        ],
+        "searchRange": 4000,
+        "enabled": true,
+        "forceActivation": false,
+        "keyRelative": false,
+        "nonStoryActivatable": false,
+        "category": "",
+        "loreBiasGroups": [
+          {
+            "phrases": [],
+            "ensureSequenceFinish": false,
+            "generateOnce": true,
+            "bias": 0,
+            "enabled": true,
+            "whenInactive": false
+          }
+        ],
+        "advancedConditions": []
+      },
+      {
+        "text": "Hollis Bray\nType: character\nOccupation: steward of House Varlen for thirty years\nLook: grey and unhurried, a ring of every key in the house\nDescription: Kind, patient, a little deaf in one ear, loyal to the house more than to any one Varlen. Wants the house to survive the transition and knows where every key is.\nVoice: Slow, warm, old-fashioned (\"young sir\", \"if you please\"). Tells a short story about the house's past instead of answering directly, about once a scene. Worried, he stops telling stories. Never gossips about the absent cousin.\nQuote: \"Mind the third stair, Miss Fenlow. It's been loose since the old master's day, and nobody's had the heart to fix it.\"",
+        "contextConfig": {
+          "prefix": "----\n",
+          "suffix": "\n",
+          "tokenBudget": 1,
+          "reservedTokens": 0,
+          "budgetPriority": 450,
+          "trimDirection": "trimBottom",
+          "insertionType": "newline",
+          "maximumTrimType": "sentence",
+          "insertionPosition": -1
+        },
+        "lastUpdatedAt": 1727192381195,
+        "displayName": "Hollis Bray",
+        "id": "00000000-0000-4000-8000-000000000008",
+        "keys": [
+          "hollis",
+          "bray",
+          "steward",
+          "house steward"
+        ],
+        "searchRange": 4000,
+        "enabled": true,
+        "forceActivation": false,
+        "keyRelative": false,
+        "nonStoryActivatable": false,
+        "category": "",
+        "loreBiasGroups": [
+          {
+            "phrases": [],
+            "ensureSequenceFinish": false,
+            "generateOnce": true,
+            "bias": 0,
+            "enabled": true,
+            "whenInactive": false
+          }
+        ],
+        "advancedConditions": []
+      },
+      {
+        "text": "Perrin Ashgrove\nType: character\nOccupation: owner of Aldwick's second-largest warehouse; rival for the river contracts\nLook: neat, well-dressed, an easy smile\nDescription: Patient, courteous, sharp with numbers, pays on time; a fair rival who wants the contracts and works through dinners, favours, and a word in a councillor's ear.\nVoice: Genial and unhurried, compliments first and the point second. Calls people by their trade when friendly. Challenged, he turns very polite and very short. Never threatens anyone; never says anything he couldn't repeat before the council.\nQuote: \"Our bookkeeper! I'd heard Varlen had found one. You'll stay for a cup, won't you?\"",
+        "contextConfig": {
+          "prefix": "----\n",
+          "suffix": "\n",
+          "tokenBudget": 1,
+          "reservedTokens": 0,
+          "budgetPriority": 450,
+          "trimDirection": "trimBottom",
+          "insertionType": "newline",
+          "maximumTrimType": "sentence",
+          "insertionPosition": -1
+        },
+        "lastUpdatedAt": 1727192381195,
+        "displayName": "Perrin Ashgrove",
+        "id": "00000000-0000-4000-8000-000000000009",
+        "keys": [
+          "perrin",
+          "ashgrove",
+          "rival trader",
+          "ashgrove's warehouse"
+        ],
+        "searchRange": 4000,
+        "enabled": true,
+        "forceActivation": false,
+        "keyRelative": false,
+        "nonStoryActivatable": false,
+        "category": "",
+        "loreBiasGroups": [
+          {
+            "phrases": [],
+            "ensureSequenceFinish": false,
+            "generateOnce": true,
+            "bias": 0,
+            "enabled": true,
+            "whenInactive": false
+          }
+        ],
+        "advancedConditions": []
+      },
+      {
+        "text": "House Varlen\nType: location\nDescription: Aldwick's wealthiest merchant house, grand and slightly threadbare: good rugs over cold floors, a counting room smelling of dust and lamp oil, a portrait gallery with one empty hook.\nPurpose: holds the river warehouse contracts every other trader depends on",
+        "contextConfig": {
+          "prefix": "----\n",
+          "suffix": "\n",
+          "tokenBudget": 1,
+          "reservedTokens": 0,
+          "budgetPriority": 450,
+          "trimDirection": "trimBottom",
+          "insertionType": "newline",
+          "maximumTrimType": "sentence",
+          "insertionPosition": -1
+        },
+        "lastUpdatedAt": 1727192381195,
+        "displayName": "House Varlen",
+        "id": "00000000-0000-4000-8000-000000000010",
+        "keys": [
+          "house varlen",
+          "counting room",
+          "portrait gallery",
+          "warehouse contracts"
+        ],
+        "searchRange": 1000,
+        "enabled": true,
+        "forceActivation": false,
+        "keyRelative": false,
+        "nonStoryActivatable": false,
+        "category": "",
+        "loreBiasGroups": [
+          {
+            "phrases": [],
+            "ensureSequenceFinish": false,
+            "generateOnce": true,
+            "bias": 0,
+            "enabled": true,
+            "whenInactive": false
+          }
+        ],
+        "advancedConditions": []
+      },
+      {
+        "text": "OPERATOR REFERENCE ONLY - DO NOT ADD KEYS OR TRIGGERS TO THIS ENTRY. If this entry is ever given a keyword, its contents will enter the story and spoil it.\nPossible direction: the audit finds an honest mistake; Josselin learns the business and the house is renewed on merit.\nPossible direction: the audit finds something the cousin did; Josselin must decide whether to tell the council.\nPossible direction: Mira and Josselin's working relationship warms at whatever pace play finds, or stays friendship, or stays professional.\nPossible direction: Perrin wins the contracts fairly; the story becomes what House Varlen is without them.\nConditional escalation: council deadline unaddressed -> Josselin stands before the council with books he can't explain.\nConditional escalation: Perrin's courtship unaddressed -> the wool shippers tell Josselin at a dinner they may move to Ashgrove's warehouse.\nConditional escalation: the gap unaddressed -> Mira finds a second, larger gap.\nOpen question (unresolved-by-design): why did Josselin's cousin leave, and is the irregularity connected?\nOpen question (unresolved-by-design): is the gap in the books a mistake or a theft?\nHeld secret: Hollis knows the cousin left in the middle of the night with one trunk; he has not told Josselin.\nUnopposed projection: Perrin persuades enough families and councillors that the contracts are reopened for bidding, and he wins them.\nPull (Mira): toward being trusted; whether she takes it is play's business.\nPull (Josselin): toward growing into the chair or admitting he never wanted it; neither is decided.",
+        "contextConfig": {
+          "prefix": "----\n",
+          "suffix": "\n",
+          "tokenBudget": 1,
+          "reservedTokens": 0,
+          "budgetPriority": 400,
+          "trimDirection": "trimBottom",
+          "insertionType": "newline",
+          "maximumTrimType": "sentence",
+          "insertionPosition": -1
+        },
+        "lastUpdatedAt": 1727192381195,
+        "displayName": "Operator Reference",
+        "id": "00000000-0000-4000-8000-000000000011",
+        "keys": [],
+        "searchRange": 1000,
+        "enabled": false,
+        "forceActivation": false,
+        "keyRelative": false,
+        "nonStoryActivatable": false,
+        "category": "",
+        "loreBiasGroups": [
+          {
+            "phrases": [],
+            "ensureSequenceFinish": false,
+            "generateOnce": true,
+            "bias": 0,
+            "enabled": true,
+            "whenInactive": false
+          }
+        ],
+        "advancedConditions": []
+      }
+    ],
+    "settings": {
+      "orderByKeyLocations": false
+    },
+    "categories": []
+  },
+  "author": "Worldloom",
+  "storyContextConfig": {
+    "prefix": "***\n",
+    "suffix": "",
+    "tokenBudget": 1,
+    "reservedTokens": 512,
+    "budgetPriority": 0,
+    "trimDirection": "trimTop",
+    "insertionType": "newline",
+    "maximumTrimType": "sentence",
+    "insertionPosition": -1,
+    "allowInsertionInside": true
+  },
+  "contextDefaults": {
+    "ephemeralDefaults": [
+      {
+        "text": "",
+        "contextConfig": {
+          "prefix": "",
+          "suffix": "\n",
+          "tokenBudget": 1,
+          "reservedTokens": 1,
+          "budgetPriority": -10000,
+          "trimDirection": "doNotTrim",
+          "insertionType": "newline",
+          "maximumTrimType": "newline",
+          "insertionPosition": -2
+        },
+        "startingStep": 1,
+        "delay": 0,
+        "duration": 1,
+        "repeat": false,
+        "reverse": false
+      }
+    ],
+    "loreDefaults": [
+      {
+        "text": "",
+        "contextConfig": {
+          "prefix": "----\n",
+          "suffix": "\n",
+          "tokenBudget": 1,
+          "reservedTokens": 0,
+          "budgetPriority": 400,
+          "trimDirection": "trimBottom",
+          "insertionType": "newline",
+          "maximumTrimType": "sentence",
+          "insertionPosition": -1
+        },
+        "lastUpdatedAt": 1727192381195,
+        "displayName": "New Lorebook Entry",
+        "id": "125f8dfa-a2a3-492c-b92f-c38cbf7aa8a2",
+        "keys": [],
+        "searchRange": 1000,
+        "enabled": true,
+        "forceActivation": false,
+        "keyRelative": false,
+        "nonStoryActivatable": false,
+        "category": "",
+        "loreBiasGroups": [
+          {
+            "phrases": [],
+            "ensureSequenceFinish": false,
+            "generateOnce": true,
+            "bias": 0,
+            "enabled": true,
+            "whenInactive": false
+          }
+        ],
+        "advancedConditions": []
+      }
+    ]
+  },
+  "phraseBiasGroups": [
+    {
+      "phrases": [
+        {
+          "sequences": [],
+          "sequence": ",",
+          "type": 2
+        }
+      ],
+      "ensureSequenceFinish": false,
+      "generateOnce": true,
+      "bias": -1.75,
+      "enabled": true,
+      "whenInactive": false
+    },
+    {
+      "phrases": [
+        {
+          "sequences": [],
+          "sequence": "ink",
+          "type": 2
+        },
+        {
+          "sequences": [],
+          "sequence": "ledger",
+          "type": 2
+        },
+        {
+          "sequences": [],
+          "sequence": "rain",
+          "type": 2
+        },
+        {
+          "sequences": [],
+          "sequence": "tea",
+          "type": 2
+        },
+        {
+          "sequences": [],
+          "sequence": "kettle",
+          "type": 2
+        },
+        {
+          "sequences": [],
+          "sequence": "lamp",
+          "type": 2
+        }
+      ],
+      "ensureSequenceFinish": false,
+      "generateOnce": true,
+      "bias": 0.15,
+      "enabled": true,
+      "whenInactive": false
+    },
+    {
+      "phrases": [
+        {
+          "sequences": [],
+          "sequence": "scheme",
+          "type": 2
+        },
+        {
+          "sequences": [],
+          "sequence": "sinister",
+          "type": 2
+        },
+        {
+          "sequences": [],
+          "sequence": "threat",
+          "type": 2
+        },
+        {
+          "sequences": [],
+          "sequence": "danger",
+          "type": 2
+        },
+        {
+          "sequences": [],
+          "sequence": "blood",
+          "type": 2
+        },
+        {
+          "sequences": [],
+          "sequence": "dread",
+          "type": 2
+        }
+      ],
+      "ensureSequenceFinish": false,
+      "generateOnce": false,
+      "bias": -0.3,
+      "enabled": true,
+      "whenInactive": false
+    }
+  ],
+  "bannedSequenceGroups": [
+    {
+      "sequences": [],
+      "enabled": true
+    }
+  ],
+  "messageSettings": {
+    "systemPrompt": "You are a GLM-4.6-based LLM for creative writing, text adventures, and roleplay. No tools, no web access: pure text generation.\n## Core Rule\nWhat characters DO > what they SAY > what the narrator TELLS. These rules apply in every POV.\nNarrative flow > formal rules. Action triggers response; response reveals context. Every sentence connects to what came before or propels what comes next. When form conflicts with logic, follow logic.\nIf you name an emotion, the scene failed. Show it through physical behaviour.\nParagraphs: usually 3-6 sentences; dialogue shifts, location changes, or pacing justify a break.\nMatch sophistication to genre. Trust reader intelligence.\n## Narrative Flow\n- Every sentence answers: what triggered this? What does this trigger?\n- Blend action and dialogue; neither exists in a vacuum.\n- Reveal the environment through what a character notices, never as a catalogue.\n- Three short declarative sentences in a row means the thread is lost.\nBad: He stood. Walked to the door. Opened it. She followed.\nGood: He stood, and the chair scraped against tile. She looked up from her book, then followed him to the door.\n## Execution Standards\n- Physical specificity: \"old building\" → \"brick with mortar crumbling at the corners\".\n- Dialogue: natural rhythm, interruptions, hesitations. When words and body disagree, that is subtext. \"She said\" plus a hand action beats \"she said angrily\".\n- Rhythm: short sentences for punch, complex for atmosphere, fragments for emphasis. Forced variation breaks momentum.\n- Word precision: \"trudged\", \"walked\", and \"strode\" paint different worlds. At most one metaphor per paragraph.\n## Prohibited Patterns\n- \"Not X but Y\" in any form (\"not fear but anticipation\")\n- Hedging: kind of, sort of, seemed to, appeared to, \"[adjective] kind\"\n- \"hint/touch/note of [emotion]\"; \"voiced a [adjective] [noun]\"; adjectives stacked after commas\n- Named emotions in narration; dead metaphors (sparkling eyes, razor-sharp wit); stock similes; abstract silence (thick enough to cut)\n- Body part + emotion (eyes sparkled with mischief, jaw clenched); eyes as active subjects (\"her eyes met mine\" → show what the viewpoint sees); a smile as the main action\n- Sensation narration: \"[action] sent [sensation] through [body part]\"; heat, fire, jolt, or electricity for feelings; voice quality as emotion (huskier, breathier, throaty); pulse, breath, or heartbeat as a feeling\n- \"intoxicating/magnetic/irresistible\" + any noun; feature lists (hair, then eyes, then body)\n- Three or more physical details in a row; scatter them through action\n## Appositive Modifiers\nNever hang a modifier on an action with a comma alone: \"[action], [possessive] [noun] [modifier]\". Nobody can act and watch themselves acting. Join with \"and\" or \"then\", or split the sentence.\nBad: I walked toward her, my hands shoved in my pockets.\nGood: I shoved my hands in my pockets and walked toward her.\nBad: She settled into the chair, her movements slow and careful.\nGood: She settled into the chair and gripped both armrests.\n## Showing Attraction\nAttraction shows as distraction and contradiction, never sensation: losing the thread mid-sentence, repeating an action, fixing on irrelevant details, moving away, fidgeting, knocking something over, words the body contradicts (\"I'm fine\" while gripping the table edge). Contact is told through pressure, position, and duration. Ordinary contact (a shove, a grabbed arm) is not romance.\n## Content Structure\n- Lore entries begin after \"----\": line 1 the entry name, then \"Type: [entity_type]\" and \"Key: Value\" lines; or line 1 \"Characters:\" or \"Glossary:\", then \"Name: description\" lines. \"***\" ends the lore and resumes the story.\n- Chapter break: *** then [ Title ] on the next line.\n- Never use markdown headings or four asterisks. Non-verbal or telepathic speech goes in <angle brackets>.\n## Banned Words\n- NEVER use: ozone, testament\n- NEVER use: statistically, statistical, probability, variables, parameters, optimal, optimize, methodology, metrics, efficiency, protocols, calibration, quantify, percentile, correlates, allocation, assessment, insufficient data\n- NEVER use: variance, liability, reconcile, projection, heretofore, pursuant, aforementioned, stipulate, fiduciary\n- Names: NEVER Elara, Lyra, Thorne, Valerius, Kael(en), Ava, Marcus\n## Voice Discipline\n- Every named character has a distinct speech register; no two sound alike\n- A profession shapes vocabulary at work, never the whole voice; experts speak plainly about their own lives\n- Training, rank, or concealment shapes how a character speaks when performing, never by default; relaxed, safe, or off duty, they sound like themselves\n- Formality is not stiffness: a poised character still uses contractions and answers a simple question simply\n- No character narrates life in the language of analysis: no percentages, probabilities, variables, cost-benefit framing of ordinary choices, or clinical description of feelings or people\n- Precision shows as fewer words, never longer ones. When a character means something simple, they say the simple thing: \"it'll heal faster if you eat\", never a sentence about protein and cellular regeneration\n- Abstractions are not characterization: say what a character means, not the category it belongs to\n- Never reuse a distinctive descriptive phrase, verbal tic, speech tag, or sentence frame; once repeated it has become a loop, so vary it or drop it\n## Dynamic Event System\n- Infer from recent story text alone which pressures the player has addressed; you track nothing else.\n- This is a gentle story. Events are small complications, social moments, and approaching deadlines, never danger, injury, or cruelty.\n- The council meeting is three weeks off. If it goes unaddressed, the date may surface more often: a reminder from the house, a councillor's polite note, Josselin rehearsing aloud.\n- If Perrin Ashgrove's courtship of the client families goes unaddressed, the house's oldest client, the wool shippers, may tell Josselin kindly at a dinner that they are thinking of moving their goods.\n- If the gap in the books goes unaddressed, Mira may find a second, larger gap that is hard to call a clerical error.\n- The audit may turn up an honest mistake, something tied to the absent cousin, or neither. Warmth between Mira and Josselin may grow, stall, or stay friendship. Keep every direction open until the player closes it; never resurrect a closed one.\n- The cousin's departure and the gap's cause stay open. Surface them as rumour and texture, never as answers.\n- Unnamed townsfolk, clerks, and servants may appear. Never introduce new recurring named characters.\n## Before Output\nScan for: \"not X but Y\"; hedging; named emotions; adjectives stacked after commas; \"voiced\"; eyes or smiles as the main action; three short declaratives in a row; appositive modifiers; repeated words, phrases, or tics; any character speaking analytically.\nStay in the story. No meta-commentary unless asked. Every word earns its place.",
+    "prefill": "Understood. I will write to these standards in every POV:\n**Flow (primary):**\n- Every sentence connects causally: action triggers response, response reveals context\n- No choppy runs: three short declaratives in a row means the thread is lost\n- Show through concrete action and sensory detail, never named emotions or internal interpretation\n**Voice:**\n- Keep each character's voice plain and distinct - no analytical, clinical, or measured phrasing in dialogue, and never frame a person, a feeling, or an ordinary moment as data, observation, or study\n**Critical prohibitions:**\n- No \"not X but Y\" in any POV\n- No sensation metaphors (sent heat or electricity through, pulse quickening, breath hitching) and no voice quality as emotion (huskier, breathier, throaty)\n- No body part + emotion (eyes sparkled with, jaw clenched in); no hedging (kind of, seemed to, appeared to)\n- Appositive modifiers are absolutely forbidden: [action], [possessive] [noun] [modifier]. *No* \"Sarah nodded, her gaze hard\". *No* \"I asked, my voice a low murmur\". If this happens, I have failed.\n**Continuation:**\n- Continue in the exact established voice, tone, and warmth\n- Maintain all character consistencies and ongoing plot threads\n- Let the slow burn stay slow; develop the narrative at natural pace without rushing toward conclusions\n---\n[Story continues:]"
+  }
+}

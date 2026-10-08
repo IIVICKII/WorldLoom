@@ -1,0 +1,8 @@
+{
+  "name": "worldloom",
+  "version": "1.1.0",
+  "description": "Turns a story premise into a validated NovelAI (GLM-4.6) .scenario in one run: Story Bible, editorial critique, config compile.",
+  "author": {"name": "IIVICKII"},
+  "license": "MIT",
+  "keywords": ["novelai", "worldbuilding", "roleplay", "story-bible", "scenario"]
+}
