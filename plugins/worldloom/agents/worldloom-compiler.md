@@ -2,7 +2,7 @@
 name: worldloom-compiler
 description: Worldloom Stage 3. Compiles a Story Bible file into a NovelAI .scenario, builds it with the bundled script and validates it. Spawned by the worldloom orchestrator skill with the bible's path and an optional POV line.
 tools: Read, Write, Bash
-model: sonnet
+model: inherit
 omitClaudeMd: true
 ---
 

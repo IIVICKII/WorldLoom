@@ -2,7 +2,7 @@
 name: worldloom-architect
 description: Worldloom Stage 1. Expands a story premise into a seven-section Roleplay Story Bible and writes it to bible_v1.txt. Spawned by the worldloom orchestrator skill with the input block and an output root.
 tools: Read, Write
-model: opus
+model: inherit
 omitClaudeMd: true
 ---
 

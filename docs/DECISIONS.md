@@ -24,3 +24,6 @@ Why: one copy of each stage's rules serves the subagents, the chat fallback and 
 
 ## 2026-10-09 — MIT licence, with credits to OccultSage
 Why: the repo is public and the user wants others to be able to reuse it; MIT is short and permissive. The scenario format and settings draw on two OccultSage community scenarios, so the README credits them and the two files stay out of the repo. · Alternatives: GPL-3.0 (forces derivatives open, not wanted); Apache-2.0 (longer, patent grant not needed); no licence (blocks reuse).
+
+## 2026-10-09 — Stages inherit the session's model and effort
+Why: the user wants the model picker and effort setting to control the whole run; a Sonnet session still ran Stage 1 on Opus. `model: inherit` in each agent does it with no orchestrator logic, and leaving `effort` unset lets the session's level apply. · Alternatives: pinned Opus/Sonnet/Sonnet (rejected: ignores the session); inherit for Stage 1 only (rejected: two rules to remember); passing model and effort from the orchestrator on each spawn (rejected: more moving parts for the same result).

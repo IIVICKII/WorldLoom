@@ -48,7 +48,7 @@ def main():
         assert value.startswith('"') or ": " not in value, skill.name + ": unquoted description with a colon breaks YAML"
     for agent in sorted((PLUGIN / "agents").glob("*.md")):
         front = re.match(r"---\n(.*?)\n---\n", agent.read_text(encoding="utf-8"), re.S).group(1)
-        assert "name: " + agent.stem in front and re.search(r"^model: (opus|sonnet|haiku)$", front, re.M), agent.name
+        assert "name: " + agent.stem in front and re.search(r"^model: (inherit|opus|sonnet|haiku)$", front, re.M), agent.name
     plugin = json.loads((PLUGIN / ".claude-plugin/plugin.json").read_text(encoding="utf-8"))
     market = json.loads((ROOT / ".claude-plugin/marketplace.json").read_text(encoding="utf-8"))
     assert plugin["name"] == market["plugins"][0]["name"] == "worldloom"

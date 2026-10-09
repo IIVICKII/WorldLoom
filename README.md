@@ -37,18 +37,18 @@ Worldloom does that setup for open-ended, player-driven roleplay. It is built ar
 
 ## How it works
 
-| Stage | Subagent | Default model | Reads | Writes |
+| Stage | Subagent | Model | Reads | Writes |
 |---|---|---|---|---|
-| 1 Story Bible | `worldloom-architect` | Opus | your input block | `input.txt`, `bible_v1.txt` |
-| 2 Critique | `worldloom-critic` | Sonnet | `bible_v1.txt` | `critique.md`, `bible_v2.txt` |
-| 3 Compile | `worldloom-compiler` | Sonnet | `bible_v2.txt` | `notes.md`, `scenario_content.json`, `<Title>.scenario`, `validation.txt` |
+| 1 Story Bible | `worldloom-architect` | session model | your input block | `input.txt`, `bible_v1.txt` |
+| 2 Critique | `worldloom-critic` | session model | `bible_v1.txt` | `critique.md`, `bible_v2.txt` |
+| 3 Compile | `worldloom-compiler` | session model | `bible_v2.txt` | `notes.md`, `scenario_content.json`, `<Title>.scenario`, `validation.txt` |
 
 An orchestrator skill (`worldloom`) runs the three stages in order and passes only file paths between them, so no stage sees another stage's reasoning. Between stages it runs two scripts:
 
 - `check_bible.py` after Stage 1 (structure) and after Stage 2 (same cast, same fields). A failure stops the run.
 - `build_scenario.py --validate` inside Stage 3. The model writes only the story-specific content as JSON; the script adds the fixed sampler and context blocks, assembles the `.scenario`, and runs 16 checks on it. Stage 3 gets three attempts to pass.
 
-A full Tablet run uses roughly 170k tokens across the three subagents and takes about eleven minutes.
+Every stage runs on the model and effort level of the session you start the run from, so the model picker controls the whole pipeline. A full Tablet run measured roughly 170k tokens across the three subagents and about eleven minutes, with Opus on Stage 1 and Sonnet on Stages 2 and 3; other models will differ.
 
 ## Requirements
 
@@ -158,7 +158,7 @@ The stage rules come from the files in `worldloom_source/`. A generator copies t
 | The genre profiles | `worldloom_source/KB_GENRE_PROFILES.md` | `python tools/build_skills.py` |
 | Text the plugin adds to a stage skill (file paths, the build command, chat fallback) | `tools/build_skills.py` | `python tools/build_skills.py` |
 | The order of stages, the switches, the final report | `plugins/worldloom/skills/worldloom/SKILL.md` | nothing |
-| A stage's model or tools | the `model:` or `tools:` line in `plugins/worldloom/agents/worldloom-*.md` | nothing |
+| Pin a stage to one model, or change its tools | the `model:` or `tools:` line in `plugins/worldloom/agents/worldloom-*.md` | nothing |
 | Samplers, context settings, tier caps, fixed Voice Guard and Prefill text | `plugins/worldloom/skills/worldloom-compile/assets/fixed_blocks.json` | update the tests if a reference value changed |
 | The system prompt layout | `plugins/worldloom/skills/worldloom-compile/references/system-prompt-template.md` | as above |
 | The shape of the content JSON Stage 3 writes | `references/content-schema.md` and `scripts/build_scenario.py` | as above |
@@ -206,7 +206,7 @@ Two things to keep in mind:
 
 ### Common changes
 
-**Use a different model for a stage.** Change `model:` in the agent file to `opus`, `sonnet` or `haiku`. In testing, Haiku for Stage 3 cost more tokens and took longer than Sonnet.
+**Pin a stage to a model.** Stages use `model: inherit`, which follows the session. To fix one stage to a model, change `model:` in its agent file to `opus`, `sonnet` or `haiku`. In testing, Haiku for Stage 3 cost more tokens and took longer than Sonnet.
 
 **Change the samplers.** Edit `settings` in `fixed_blocks.json`. They are the same for every story.
 

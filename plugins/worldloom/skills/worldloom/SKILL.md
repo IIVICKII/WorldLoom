@@ -60,7 +60,11 @@ A stage that fails or returns something other than the replies above: report wha
 
 Find a Python 3 interpreter once, before Stage 1, and use that same one for the whole run:
 
-1. Try `python --version`, then `python3 --version`, then `py -3 --version`. The first that prints `Python 3.` is the interpreter. A command that prints nothing, fails, or opens the Microsoft Store is a stub, not Python.
+1. Try `python`, then `python3`, then `py -3`, and stop at the first whose `--version` prints `Python 3.`. Run the search as one command that hides what the failed ones print; it prints the interpreter to use, or nothing:
+   - bash: `for p in python python3 "py -3"; do $p --version 2>/dev/null | grep -q "^Python 3\." && { echo "$p"; break; }; done`
+   - PowerShell: `foreach ($p in 'python','python3','py -3') { $c = $p -split ' '; if ((& $c[0] $c[1..9] --version 2>$null) -match '^Python 3\.') { $p; break } }`
+
+   A command that prints nothing, fails, or opens the Microsoft Store is a stub, not Python.
 2. On Windows, when none of those work, look for a per-user install: `ls "$LOCALAPPDATA"/Programs/Python/Python3*/python.exe` in bash, or `Get-ChildItem "$env:LOCALAPPDATA\Programs\Python\Python3*\python.exe"` in PowerShell. Use the full path of the newest one, and confirm it with `--version`.
 3. Nothing found: carry on without one. The bible checks are skipped, Stage 3 gets no `Python:` line and will fall back to its hand-written procedure, and the final report must say that the scenario was not validated by the script.
 

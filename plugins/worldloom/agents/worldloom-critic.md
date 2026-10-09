@@ -2,7 +2,7 @@
 name: worldloom-critic
 description: Worldloom Stage 2. Independent editorial critique of a Story Bible file; writes critique.md and the revised bible_v2.txt beside it. Spawned by the worldloom orchestrator skill with only the bible's path.
 tools: Read, Write
-model: sonnet
+model: inherit
 omitClaudeMd: true
 ---
 

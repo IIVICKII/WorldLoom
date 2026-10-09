@@ -21,7 +21,7 @@ Skip: worldloom-output/, dist/, __pycache__/
 - `tests/test_verbatim.py` — every source line is in the plugin; frontmatter, agent and manifest sanity
 
 ## plugins/worldloom/agents/
-- `worldloom-architect.md`, `worldloom-critic.md`, `worldloom-compiler.md` — thin stage subagents; set `model:` and tools, then read the stage `SKILL.md`
+- `worldloom-architect.md`, `worldloom-critic.md`, `worldloom-compiler.md` — thin stage subagents; `model: inherit` and tools, then read the stage `SKILL.md`
 
 ## plugins/worldloom/skills/
 - `worldloom/SKILL.md` — orchestrator: parses input and switches, finds Python, spawns the three agents with file paths, runs the bible checks, reports; chat fallback

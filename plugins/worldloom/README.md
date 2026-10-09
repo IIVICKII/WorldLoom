@@ -53,13 +53,17 @@ To name the character you play, say so in Character Dynamics ("Mira is the one I
 
 ## Models
 
-| Stage | Agent file | Default |
-|---|---|---|
-| 1 Story Bible | `agents/worldloom-architect.md` | `opus` |
-| 2 Critique | `agents/worldloom-critic.md` | `sonnet` |
-| 3 Compile | `agents/worldloom-compiler.md` | `sonnet` |
+Every stage runs on the model and effort level of the session you start the run from. Pick the model before you run the command.
 
-To change a stage's model, edit the one `model:` line in its agent file (`opus`, `sonnet` or `haiku`), raise `version` in `.claude-plugin/plugin.json`, then run `claude plugin update worldloom@worldloom-local` and start a new session. If the update does not pick the change up, reinstall: `claude plugin uninstall worldloom@worldloom-local`, then `claude plugin install worldloom@worldloom-local`. Installing copies the plugin into `~/.claude/plugins/cache/`, so an edit to the source folder does nothing until you update or reinstall.
+| Stage | Agent file | `model:` |
+|---|---|---|
+| 1 Story Bible | `agents/worldloom-architect.md` | `inherit` |
+| 2 Critique | `agents/worldloom-critic.md` | `inherit` |
+| 3 Compile | `agents/worldloom-compiler.md` | `inherit` |
+
+What that means for cost and quality: from an Opus session all three stages run on Opus, which costs clearly more than a Sonnet session. From a Haiku session the bible, the creative part, is written by the smallest model; in testing Haiku also used more tokens than Sonnet on Stage 3.
+
+To pin one stage to a model whatever the session uses, change its `model:` line to `opus`, `sonnet` or `haiku`, raise `version` in `.claude-plugin/plugin.json`, then run `claude plugin update worldloom@worldloom-local` and start a new session. If the update does not pick the change up, reinstall: `claude plugin uninstall worldloom@worldloom-local`, then `claude plugin install worldloom@worldloom-local`. Installing copies the plugin into `~/.claude/plugins/cache/`, so an edit to the source folder does nothing until you update or reinstall.
 
 ## Where it works
 
