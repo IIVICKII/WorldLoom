@@ -73,6 +73,8 @@ To pin one stage to a model whatever the session uses, change its `model:` line 
 | claude.ai chat (plugin or skills uploaded) | Subagents are not available, so the `worldloom` skill runs the three stages one after another in the same chat. With code execution the scripts still run; without it Stage 3 writes the JSON by hand (`references/manual-json.md`). |
 | Free plan | Upload the stage skills one at a time (`worldloom-bible`, `worldloom-critique`, `worldloom-compile`) and run each in its own chat, pasting the bible across. Each falls back to its original code-block output and `CONTINUE`. |
 
+Stage 2 makes the revised bible by copying the bible file and editing only the passages it changes. Without a shell or an edit tool it writes the whole revised bible instead.
+
 The scripts need Python 3 and nothing else. They use no network. The full run looks for an interpreter once (`python`, `python3`, `py -3`, then a per-user Windows install under `%LOCALAPPDATA%\Programs\Python`) and hands it to Stage 3. With none found, the bible checks are skipped, Stage 3 writes the JSON by hand, and the final report says the scenario was not validated.
 
 ## The validator
@@ -89,7 +91,11 @@ The report also carries `INFO` lines with the measured budgets (Author's Note, S
 
 `skills/worldloom/scripts/check_bible.py BIBLE [--against ORIGINAL]`
 
-The full run checks the bible after Stage 1 and the revision after Stage 2, and stops if either fails. Alone, the script checks structure: the `TIER:` line, the seven section headings in order, one `Player Character:` line, no code fence, no banned name. With `--against`, it also checks that the revision kept the same named characters, factions and locations, the same Narrative Weight and Role for each, the same Player Character, and the same labelled fields in the same order. It prints names and labels only. The single-stage skills do not run it, so they still accept older bibles.
+The full run checks the bible after Stage 1 and the revision after Stage 2, and stops if either fails. Alone, the script checks structure: the `TIER:` line, the seven section headings in order, one `Player Character:` line, no code fence, no banned name. With `--against`, it also checks that the revision kept the same named characters, factions and locations, the same Narrative Weight and Role for each, the same Player Character, and the same labelled fields in the same order. It prints names and labels only.
+
+A `WARN` line appears when the Main Cast is larger than the tier's lorebook budget assumes (Tablet 2, Scroll 3, Opus 4). It never fails the check and never stops the run: your cast always wins. The final report repeats it with the command to recompile at a larger tier.
+
+The single-stage skills do not run it, so they still accept older bibles.
 
 ## Tier budgets
 

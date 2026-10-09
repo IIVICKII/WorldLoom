@@ -47,12 +47,13 @@ A stage that fails or returns something other than the replies above: report wha
 
 ### Checking a bible
 
-`scripts/check_bible.py`, in this skill's folder, checks a bible file without you reading it. It prints only PASS and FAIL lines with names and labels, never the bible's prose.
+`scripts/check_bible.py`, in this skill's folder, checks a bible file without you reading it. It prints only PASS, FAIL and WARN lines with names, labels and counts, never the bible's prose.
 
     python "<this skill's folder>/scripts/check_bible.py" "<bible path>" [--against "<original bible path>"]
 
 - Alone, it checks structure: the `TIER:` line, the seven section headings in order, one `Player Character:` line, no code fence, no banned name.
 - With `--against`, it also checks that the revision has the same named characters, factions and locations, the same Narrative Weight and Role for each, the same Player Character, and the same labelled fields in the same order.
+- A `WARN` line (Main Cast larger than the tier's budget assumes) is not a failure and never stops the run. Keep the line for the final report.
 - Exit 0 is a pass. Run it with the interpreter from "Finding Python" below. With no interpreter, skip both checks and say in the final report that the bibles were not checked.
 - A FAIL is never yours to repair: do not open or edit the bible.
 
@@ -78,7 +79,7 @@ End with a short report:
 - the validation result from Stage 3 (`RESULT:` line and the number of warnings; on failure the remaining `FAIL` lines, and say plainly that the file did not pass);
 - when Stage 3 failed, was not validated, or did not finish: the command that runs it again on its own, `/worldloom:worldloom-compile <bible path>`, with the real path filled in;
 - the files written;
-- the bible checks: passed, or not run and why;
+- the bible checks: passed, or not run and why; and any `WARN` line they printed, word for word, followed by the command that compiles the same bible for a larger tier, `/worldloom:worldloom-compile <bible path> TIER: <larger tier>`;
 - token use per stage, when the subagent results report it; otherwise say it was not reported;
 - one line: import the `.scenario` in NovelAI with Library → Import File.
 

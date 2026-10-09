@@ -57,6 +57,17 @@ def main():
     assert failures(reworded, SAMPLE) == [], "rewording a field or adding prose is allowed"
     print("a reworded field and an added prose line pass")
 
+    lines = lambda text: C.parse(text)[0]
+    lead = "A Third Lead\nNarrative Weight: Core\n"
+    assert C.cast_warnings(lines(SAMPLE)) == [], "the sample's Main Cast fits Tablet"
+    third = SAMPLE.replace("\n4. Supporting Cast & Antagonists\n", "\n" + lead + "\n4. Supporting Cast & Antagonists\n", 1)
+    warned = C.cast_warnings(lines(third))
+    assert len(warned) == 1 and "Main Cast is 3" in warned[0] and "Scroll or Opus" in warned[0], warned
+    assert failures(third) == [], "a large cast warns, it never fails"
+    opus = third.replace("TIER: Tablet", "TIER: Opus").replace(lead, lead * 3)
+    assert "Opus is the largest" in C.cast_warnings(lines(opus))[0]
+    print("Main Cast above the tier's size warns and does not fail")
+
     runs = [d for d in sorted((ROOT / "worldloom-output").glob("*")) if (d / "bible_v1.txt").exists() and (d / "bible_v2.txt").exists()]
     for d in runs:
         v1, v2 = ((d / n).read_text(encoding="utf-8") for n in ("bible_v1.txt", "bible_v2.txt"))
@@ -69,10 +80,13 @@ def main():
         (tmp / "v2.txt").write_text(SAMPLE.replace("Role: Rival", "Role: Antagonist"), encoding="utf-8")
         run = lambda *args: subprocess.run([sys.executable, str(SCRIPT), *map(str, args)], capture_output=True, text=True)
         ok, bad, gone = run(tmp / "v1.txt"), run(tmp / "v2.txt", "--against", tmp / "v1.txt"), run(tmp / "none.txt")
-        assert ok.returncode == 0 and "RESULT: PASS 1/1" in ok.stdout, ok
+        assert ok.returncode == 0 and "RESULT: PASS 1/1" in ok.stdout and "WARN" not in ok.stdout, ok
+        (tmp / "big.txt").write_text(third, encoding="utf-8")
+        big = run(tmp / "big.txt")
+        assert big.returncode == 0 and "WARN Main Cast is 3" in big.stdout and "RESULT: PASS 1/1" in big.stdout, big
         assert bad.returncode == 1 and "RESULT: FAIL 1/2" in bad.stdout and "Perrin Ashgrove" in bad.stdout, bad
         assert gone.returncode == 1 and "FAIL cannot read" in gone.stdout, gone
-    print("CLI: pass (exit 0), failed revision (exit 1), unreadable file (exit 1)")
+    print("CLI: pass (exit 0), cast warning (exit 0), failed revision (exit 1), unreadable file (exit 1)")
     print("ALL PASS")
 
 

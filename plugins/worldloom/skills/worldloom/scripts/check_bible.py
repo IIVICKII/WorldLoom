@@ -12,6 +12,8 @@ from pathlib import Path
 SECTIONS = ["1. Working Title, Tags & Logline", "2. The World", "3. Main Cast", "4. Supporting Cast & Antagonists",
             "5. World State & Dramatic Situation", "6. Core Memory & Tone", "7. Generation Notes"]
 # Field labels the bible format defines. Other "Something: ..." lines are prose and are ignored.
+# P1's MAIN_CAST row: the cast size each tier's budget assumes.
+MAIN_CAST = {"Tablet": 2, "Scroll": 3, "Opus": 4}
 LABELS = ["Working Title", "Genres", "Logline", "Hard Rules", "Player Character", "Narrative Weight", "Role", "Age",
           "Gender", "Occupation", "Appearance", "Look", "Personality", "Background", "Wants", "Want", "Fears",
           "Reflex under pressure", "Source of friction", "Relationships at start", "Skills & Items", "Voice",
@@ -53,6 +55,22 @@ def structure(lines):
     if hits:
         fails.append("banned name: %s" % ", ".join(hits))
     return fails
+
+
+def cast_warnings(lines):
+    """Main Cast above the size the tier's budget assumes. Never a failure: the user's cast always wins."""
+    tier = lines[0][6:] if lines and lines[0].startswith("TIER: ") else ""
+    if tier not in MAIN_CAST or SECTIONS[2] not in lines or SECTIONS[3] not in lines:
+        return []
+    cast = sum(l.startswith("Narrative Weight:") for l in lines[lines.index(SECTIONS[2]):lines.index(SECTIONS[3])])
+    if cast <= MAIN_CAST[tier]:
+        return []
+    tiers = list(MAIN_CAST)
+    bigger = tiers[tiers.index(tier) + 1:]
+    return ["Main Cast is %d; the %s lorebook budget assumes %d, so entries will be short and Stage 3 may not fit. %s" % (
+        cast, tier, MAIN_CAST[tier],
+        "A larger tier (%s) gives them room, if your NovelAI plan has it." % " or ".join(bigger) if bigger
+        else "Opus is the largest tier.")]
 
 
 def revision(new, old):
@@ -102,6 +120,8 @@ def main():
         print("%s %s" % ("FAIL" if fails else "PASS", name))
         for f in fails:
             print("     - " + f)
+    for w in cast_warnings(parse(text)[0]):
+        print("WARN " + w)
     failed = sum(1 for _, fails in results if fails)
     print("RESULT: %s %d/%d checks passed" % ("FAIL" if failed else "PASS", len(results) - failed, len(results)))
     sys.exit(1 if failed else 0)

@@ -17,7 +17,7 @@ Skip: worldloom-output/, dist/, __pycache__/
 - `tools/build_skills.py` — generates the three stage skills and their source-derived references from `worldloom_source/`; holds every adaptation
 - `tools/package.py` — builds `dist/worldloom-plugin.zip` and one zip per skill with `zipfile`
 - `tests/test_scripts.py` — stdlib asserts: reference passes, content round-trip, 33 mutations rejected, 13 warning cases, CLI exit codes
-- `tests/test_bible.py` — stdlib asserts for `check_bible.py`: sample bible passes, 11 mutations rejected, run folders pass, CLI exit codes
+- `tests/test_bible.py` — stdlib asserts for `check_bible.py`: sample bible passes, 11 mutations rejected, cast-size warning, run folders pass, CLI exit codes
 - `tests/test_verbatim.py` — every source line is in the plugin; frontmatter, agent and manifest sanity
 
 ## plugins/worldloom/agents/
@@ -25,7 +25,7 @@ Skip: worldloom-output/, dist/, __pycache__/
 
 ## plugins/worldloom/skills/
 - `worldloom/SKILL.md` — orchestrator: parses input and switches, finds Python, spawns the three agents with file paths, runs the bible checks, reports; chat fallback
-- `worldloom/scripts/check_bible.py` — bible structure check and `--against` revision check (same entities, weights, labelled fields); exit 0/1
+- `worldloom/scripts/check_bible.py` — bible structure check and `--against` revision check (same entities, weights, labelled fields); warns on a Main Cast above the tier's size; exit 0/1
 - `worldloom-bible/SKILL.md` — Stage 1 rules (P1), generated; writes `input.txt`, `bible_v1.txt`
 - `worldloom-bible/references/genre-profiles.md` — KB_GENRE_PROFILES copy, generated; read every Stage 1 run
 - `worldloom-critique/SKILL.md` — Stage 2 rules (P2), generated; writes `critique.md`, `bible_v2.txt`

@@ -123,11 +123,13 @@ First the critique, written to critique.md in plain text under these four header
 ''') + [""] + headers + [""] + text('''
 Then the complete revised bible, written to bible_v2.txt as plain text with no code fence. Its first line is the tier, exactly "TIER: <tier>", then a blank line, then "1. Working Title, Tags & Logline" through the end of Section 7. Nothing after it.
 ''') + ["", out[at(out, "Inside the block:")].replace("Inside the block:", "Inside the file:"), ""] + text('''
+Plugin note, how to produce bible_v2.txt. When you have a shell and an edit tool: copy the bible file to bible_v2.txt with a shell copy (cp, or Copy-Item in PowerShell), then make each change your critique lists with the edit tool, one edit for each changed passage. Never retype text you are not changing: the copy keeps every protected block exact. If the original has a code fence or lacks the TIER first line, correct that in the copy too. Every change in critique.md must be in the file, and the file must hold no change that critique.md does not list. With no shell or no edit tool, write the complete revised bible in one write instead.
+
 Reply "OK" on the first line, then the critique path and the revised bible path, one per line, and nothing else. Never paste the critique or the bible into the reply.
 
 Variants:
 - CRITIQUE ONLY (or --critique-only) — write critique.md with the four-header critique and no revised bible.
-- RE-RUN — a second pass over a revision (bible_v2.txt). Write critique_rerun.md and bible_v3.txt. It should find markedly less; if the bible is sound, write "None found." under all four headers and write the bible out verbatim.
+- RE-RUN — a second pass over a revision (bible_v2.txt). Write critique_rerun.md and bible_v3.txt. It should find markedly less; if the bible is sound, write "None found." under all four headers and write the bible out verbatim (a shell copy does it). Produce bible_v3.txt the same way as bible_v2.txt: copy, then edit.
 ''') + [""] + check
     write("worldloom-critique/SKILL.md", ("worldloom-critique",
           "Worldloom Stage 2. Editorial critique of a complete seven-section Roleplay Story Bible: fixes genre-fit errors, "

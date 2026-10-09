@@ -1,5 +1,5 @@
 # Worldloom
-Last updated: 2026-10-09 · Current phase: PLAN.md Phase 11 (Stage 3 budget loop) done; Phase 12 (Stage 2 edits in place, cast-size warning) next
+Last updated: 2026-10-09 · Current phase: PLAN.md Phase 12 (Stage 2 edits in place, cast-size warning) done; Phase 13 (release 1.3.0 and one live check) next
 
 ## What it is
 Worldloom turns a story premise into a NovelAI (GLM-4.6) `.scenario` file through three stages: Story Bible, editorial critique, config compile. It ran as three Claude Projects joined by copy-paste. This repo repackages it as one Claude plugin (`plugins/worldloom`) with a local marketplace at the repo root.
@@ -27,11 +27,11 @@ See PLAN.md section 1 for the full tree.
 ## Current state
 - Works: builder and validator (`tests/test_scripts.py` passes: 33 error mutations, 13 warning cases); validator report with `INFO` budget lines and heuristic warnings; `check_bible.py` (`tests/test_bible.py` passes); plugin tree (`tests/test_verbatim.py` passes, zero exceptions). Live 1.1.0 run `worldloom-output/the-withy-line/`: the orchestrator found Python itself, both bible checks ran and passed, Stage 3 ended PASS 16/16 with 1 warning. Earlier 1.0.0 runs: `the-clock-at-obermoos/`, `the-kettle-post/`, `test-a-sonnet/`, `test-a2-haiku/`.
 - In progress: none.
-- Installed: `worldloom@worldloom-local` 1.2.0, user scope, registered from the local WorldLoom folder (not GitHub) on this machine. The source is ahead of it (Phase 11); it updates in Phase 13. Update with the bundled `claude.exe` by full path (`claude` is not on PATH): `plugin marketplace update worldloom-local`, then `plugin update worldloom@worldloom-local`.
-- Known issues: the 1.2.0 run `the-sixth-orb` (Scroll, six Main Cast) failed validation at lorebook 3303 of 3300 after four builds; Phase 11 addresses the cause but is unproven until the Phase 13 recompile. Stage 2 rewrites the whole bible (Phase 12). Token counts are characters ÷ 4. claude.ai and Cowork are untested. Measured tokens per stage: 1.1.0 Tablet with Opus/Sonnet/Sonnet 43.4k / 44.3k / 83.3k; 1.2.0 Scroll on Sonnet with a 41.5k-character input 72.8k / 48.0k / 102.3k.
+- Installed: `worldloom@worldloom-local` 1.2.0, user scope, registered from the local WorldLoom folder (not GitHub) on this machine. The source is ahead of it (Phases 11 and 12); it updates in Phase 13. Update with the bundled `claude.exe` by full path (`claude` is not on PATH): `plugin marketplace update worldloom-local`, then `plugin update worldloom@worldloom-local`.
+- Known issues: the 1.2.0 run `the-sixth-orb` (Scroll, six Main Cast) failed validation at lorebook 3303 of 3300 after four builds; Phase 11 addresses the cause but is unproven until the Phase 13 recompile. Stage 2 is told to copy and edit the bible (Phase 12); also unproven until a live run. Token counts are characters ÷ 4. claude.ai and Cowork are untested. Measured tokens per stage: 1.1.0 Tablet with Opus/Sonnet/Sonnet 43.4k / 44.3k / 83.3k; 1.2.0 Scroll on Sonnet with a 41.5k-character input 72.8k / 48.0k / 102.3k.
 
 ## Next up
-PLAN.md section 12, Phase 12: the critic copies the bible and edits it instead of rewriting; `check_bible.py` warns when Main Cast exceeds the tier's size. Then Phase 13: version 1.3.0, update the install, recompile `the-sixth-orb`.
+PLAN.md section 12, Phase 13: version 1.3.0, package, validate, push, update the install, then the user recompiles `bible_v2.txt` in the `the-sixth-orb` run folder and does one full run; record builds and tokens from the transcripts.
 
 ## Conventions and gotchas
 - `worldloom_source/` is the source of truth. Stage rules carry over verbatim; every adaptation is listed in PLAN.md section 2.
@@ -59,4 +59,4 @@ PLAN.md section 12, Phase 12: the critic copies the bible and edits it instead o
 - `CLAUDE.md`.
 
 ## Handoff
-Done: Phases 0–11. Phase 10 confirmed model and effort inheritance in a live run but its scenario failed the lorebook cap by 3 tokens. Phase 11 added cut guidance to the validator, a budget plan and one-pass trim rule to the compile skill, and the Edit tool to the compiler agent; committed locally, not pushed. · Stopped at: end of Phase 11. · Next: Phase 12 on approval. · Open questions: whether the budget plan is enough for six Main Cast on Scroll (Phase 13 recompile answers it; otherwise Opus tier); old commits on GitHub are still reachable by hash until the user deletes and recreates the repo; short command aliases wanted or not; keep the one-off `fixed_blocks.json` generator in `tools/` or not; claude.ai has the three stage skills uploaded, not the `worldloom` orchestrator; leftover `NovelAI Scenarios/worldloom-output/the-sixth-light` is the user's to delete.
+Done: Phases 0–12. Phase 11 added cut guidance to the validator, a budget plan and one-pass trim rule to the compile skill, and the Edit tool to the compiler agent. Phase 12 made the critic copy and edit the bible (Edit and Bash added to the agent) and made `check_bible.py` warn on a Main Cast above the tier's size; both committed locally, not pushed. · Stopped at: end of Phase 12, waiting for a yes on Phase 13. · Next: Phase 13 (bump to 1.3.0, push, update the install with the bundled `claude.exe`, live recompile of `the-sixth-orb`). · Open questions: whether six Main Cast fits Scroll at all (the check now warns; Opus tier is the fallback); old commits with the former username are still reachable by hash on GitHub until the repo is recreated.
