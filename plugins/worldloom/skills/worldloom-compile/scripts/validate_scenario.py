@@ -335,6 +335,13 @@ def validate(d, tier="Tablet", lorebook=False, info=None):
         over = math.ceil(got - fit)
         cut = "; cut about %d tokens (~%d characters) to reach the fit target of %d%s" % (
             over, over * 4, fit, first if label.startswith("Lorebook") else "")
+        if label.startswith("Lorebook") and over > 0 and sizes:
+            # Scale every trimmable entry by the same factor, so the always-on entries keep their size.
+            trimmable = sum(t for t, _ in sizes)
+            room = fit - (got - trimmable)
+            cut += "; one split that reaches the fit target: " + ", ".join(
+                "%s ~%d (~%d characters)" % (n, t * room // trimmable, t * room // trimmable * 4)
+                for t, n in sizes) if room > 0 else "; the always-on entries alone are over the fit target"
         if got > cap:
             err(16, "%s ~%d tokens, over the %s cap of %d%s" % (label, got, tier, cap, cut))
         elif got > fit:

@@ -154,7 +154,7 @@ OUTPUT FORMAT
 
 Adapted for the plugin: the bible goes to a file, not a code block. If you have no way to write files, read references/chat-mode.md in this skill's folder and follow its OUTPUT FORMAT, CONTINUATION and COMMANDS instead.
 
-Where the files go: the folder named in the task; otherwise ./worldloom-output/<slug>/, where <slug> is the Working Title in lowercase kebab-case. If that folder already holds a bible_v1.txt (try to read its first line), use <slug>-2, then <slug>-3.
+Where the files go: the folder named in the task; otherwise ./worldloom-output/<slug>/, where <slug> is the Working Title in lowercase kebab-case. If that folder already holds a bible_v1.txt (try to read its first line), use <slug>-2, then <slug>-3. When the task has a line "Folders in use: ...", it names the folders that already exist under the output root: never write into one of them, and if <slug> is in the list use <slug>-2, then <slug>-3. That line is not part of the input block and never goes into input.txt.
 - input.txt: the input block exactly as you received it.
 - bible_v1.txt: the whole bible as plain text with no code fence. First line, exactly: "TIER: <tier>", then a blank line, then Section 1 through the last line of Section 7. Nothing else in the file.
 

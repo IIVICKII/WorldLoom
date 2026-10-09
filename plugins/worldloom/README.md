@@ -21,7 +21,7 @@ Character Backgrounds: ...
 Genre Tags: cozy fantasy, slow-burn romance
 ```
 
-Everything lands in `./worldloom-output/<slug>/`:
+Everything lands in `./worldloom-output/<slug>/`. A run never reuses an existing folder: a second run of the same title goes to `<slug>-2`.
 
 | File | What it is |
 |---|---|
@@ -85,7 +85,7 @@ Stage 3 builds and validates in one step: `skills/worldloom-compile/scripts/buil
 
 It runs 16 checks: JSON and key order, the fixed sampler and context blocks, lorebook container, entries against the default entry, ids, entry order, per-role settings, entry text rules, Story So Far shape, the ATTG line, the Author's Note style line, no blank Prologue lines, System Prompt headers and fixed lines, phrase bias, banned names, and tier budgets. Exit 0 is a pass. Stage 3 gets three attempts; a file that still fails is kept and reported as failed.
 
-The report also carries `INFO` lines with the measured budgets (Author's Note, System Prompt, lorebook, and each entry, against the cap and the 92% fit target) and `WARN` lines. Warnings never fail a file. A budget line also says how much to cut to reach the fit target and, for the lorebook, which trimmable entries are largest. They cover: a field over its fit target; Core Memory outside its range; the Prologue's last spoken line belonging to the player character, ending on a question, an appositive after "said", or a "not X but Y" construction; premise-leak words in any entry except Story So Far and the Operator Reference, and in Memory, the Author's Note and the Prologue; a bias word that is already banned; an ATTG genre missing from the tags; a tag that is not lowercase; a cast name in the Author's Note; key counts and duplicate keys. The Prologue and leak checks are heuristics: read each warning and fix the ones that point at a real fault.
+The report also carries `INFO` lines with the measured budgets (Author's Note, System Prompt, lorebook, and each entry, against the cap and the 92% fit target) and `WARN` lines. Warnings never fail a file. A budget line also says how much to cut to reach the fit target and, for the lorebook, which trimmable entries are largest and a target size for each one that together reach the fit target. They cover: a field over its fit target; Core Memory outside its range; the Prologue's last spoken line belonging to the player character, ending on a question, an appositive after "said", or a "not X but Y" construction; premise-leak words in any entry except Story So Far and the Operator Reference, and in Memory, the Author's Note and the Prologue; a bias word that is already banned; an ATTG genre missing from the tags; a tag that is not lowercase; a cast name in the Author's Note; key counts and duplicate keys. The Prologue and leak checks are heuristics: read each warning and fix the ones that point at a real fault.
 
 ## The bible checks
 

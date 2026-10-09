@@ -177,7 +177,12 @@ def main():
         line = next(w if kind else w[1] for w in got if "Lorebook" in (w if kind else w[1]))
         cut = re.search(r"cut about (\d+) tokens \(~(\d+) characters\) to reach the fit target of 2024; largest trimmable entries: \w", line)
         assert cut and int(cut.group(2)) == 4 * int(cut.group(1)) > 0, line
-    print("budget messages name the cut and the largest trimmable entries")
+        # The split gives every trimmable entry a target; together they take off the whole cut and no more than needed.
+        split = re.findall(r"([^,:]+) ~(\d+) \(~\d+ characters\)", line.split("one split that reaches the fit target:")[1])
+        now = sum(V.tokens(e["text"]) for e in d["lorebook"]["entries"] if e["displayName"] in [n.strip() for n, _ in split])
+        left = sum(int(t) for _, t in split)
+        assert now - int(cut.group(1)) - len(split) <= left <= now - int(cut.group(1)) + 1, (line, now, left)
+    print("budget messages name the cut, the largest trimmable entries and a target for each")
 
     assert V.validate(REF["lorebook"], lorebook=True)[0] == []
     with tempfile.TemporaryDirectory() as tmp:

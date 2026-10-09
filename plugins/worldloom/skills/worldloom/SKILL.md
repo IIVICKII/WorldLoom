@@ -34,7 +34,7 @@ The input block:
 
 Spawn one subagent per stage, one at a time, each in a fresh context. Give each only what is listed. Use absolute paths.
 
-1. Stage 1, `worldloom:worldloom-architect`. Task message: the input block, and the output root `<current working directory>/worldloom-output`. It replies with the output folder and the bible path.
+1. Stage 1, `worldloom:worldloom-architect`. Task message: the input block, the output root `<current working directory>/worldloom-output`, and, when that folder already has subfolders, one line `Folders in use: <names, comma separated>` (list them with one `ls`; leave the line out when there are none). Stage 1 must not write into a listed folder; a second run of the same title goes to `<slug>-2`. It replies with the output folder and the bible path.
    - Reply starts `NEEDS_INPUT:`: show the user that line and stop.
    - Otherwise check the bible (see "Checking a bible" below): `check_bible.py "<bible_v1.txt>"`. Exit 1: show the user its FAIL lines and stop.
    - `--pause`: print the bible path, say "continue" resumes the run, and stop. On "continue", go on from Stage 2 with that path.
