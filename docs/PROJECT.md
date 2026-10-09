@@ -1,5 +1,5 @@
 # Worldloom
-Last updated: 2026-10-09 · Current phase: PLAN.md Phase 15 (no folder overwrite, Stage 3 per-entry targets) done; Phase 16 (release 1.4.0 and one live full run) next
+Last updated: 2026-10-09 · Current phase: PLAN.md Phase 16 (release 1.4.0 and one live full run) in progress: released, waiting for the user's live run
 
 ## What it is
 Worldloom turns a story premise into a NovelAI (GLM-4.6) `.scenario` file through three stages: Story Bible, editorial critique, config compile. It ran as three Claude Projects joined by copy-paste. This repo repackages it as one Claude plugin (`plugins/worldloom`) with a local marketplace at the repo root.
@@ -27,7 +27,7 @@ See PLAN.md section 1 for the full tree.
 ## Current state
 - Works: builder and validator (`tests/test_scripts.py` passes: 33 error mutations, 13 warning cases); validator report with `INFO` budget lines and heuristic warnings; `check_bible.py` (`tests/test_bible.py` passes); plugin tree (`tests/test_verbatim.py` passes, zero exceptions). Live 1.1.0 run `worldloom-output/the-withy-line/`: the orchestrator found Python itself, both bible checks ran and passed, Stage 3 ended PASS 16/16 with 1 warning. Earlier 1.0.0 runs: `the-clock-at-obermoos/`, `the-kettle-post/`, `test-a-sonnet/`, `test-a2-haiku/`.
 - In progress: none.
-- Installed: `worldloom@worldloom-local` 1.3.0, user scope, registered from the local WorldLoom folder (not GitHub) on this machine. The source is ahead of it (Phases 14 and 15); it updates in Phase 16. Update with the bundled `claude.exe` by full path (`claude` is not on PATH): `plugin marketplace update worldloom-local`, then `plugin update worldloom@worldloom-local`.
+- Installed: `worldloom@worldloom-local` 1.4.0, user scope, registered from the local WorldLoom folder (not GitHub) on this machine. Cache copy identical to the source. Update with the bundled `claude.exe` by full path (`claude` is not on PATH): `plugin marketplace update worldloom-local`, then `plugin update worldloom@worldloom-local`.
 - Known issues (1.3.0 live runs, see the Phase 13 log): Stage 2's copy-and-edit can delete a neighbouring field line; the revision check catches it; from Phase 14 the critic gets one repair (in the source, not yet installed or proven live). A second run whose title gives the same slug overwrites the first run's folder. Stage 3's first draft still lands well over the lorebook cap (23% on six Main Cast at Scroll) and it can exceed three builds; it passed from build 3. Stage 3 as a subagent with the Edit tool is untested. Token counts are characters ÷ 4. Old commits with the former username are reachable by hash on GitHub until the repo is recreated.
 
 ## Next up
@@ -59,4 +59,4 @@ PLAN.md section 13, Phase 16: version 1.4.0, package, validate, push, update the
 - `CLAUDE.md`.
 
 ## Handoff
-Done: Phases 0-15. 1.3.0 is released and installed. Phases 14 and 15 (checker names the missing field; critic REPAIR and one repair in the orchestrator; `Folders in use` line for Stage 1; per-entry targets in the validator; compile notes against generator scripts) are committed locally, not pushed, not installed. · Stopped at: end of Phase 15, waiting for a yes on Phase 16. · Next: Phase 16. · Open questions: whether six Main Cast is worth compiling at Scroll at all (Opus tier is the fallback).
+Done: Phases 0-15; Phase 16 release steps: version 1.4.0, packaged, both manifests validate, pushed, install updated to 1.4.0. · Stopped at: Phase 16, the user's live full run (six-lead Scroll premise, new session in the stories folder). · Next: read the stage transcripts and record the folder used (expect `the-sixth-orb-2`), whether a Stage 2 repair ran, Stage 3 builds and lorebook per build, Edit against scripts, final RESULT; phase log; commit and push. · Open questions: whether six Main Cast is worth compiling at Scroll at all (Opus tier is the fallback).
