@@ -4,6 +4,7 @@ Run: python tests/test_scripts.py
 """
 import copy
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -167,6 +168,16 @@ def main():
         got = V.validate(d, "Tablet")[1]
         assert any(expected in w for w in got), "%s: no warning with %r in %s" % (name, expected, got)
     print("%d warnings fire on their mutation and not on the reference" % len(WARNINGS))
+
+    # A budget message names the cut that reaches the fit target and, for the lorebook, the largest trimmable entries.
+    for name, kind in (("lorebook over fit target", 1), ("lorebook over cap", 0)):
+        d = copy.deepcopy(REF)
+        next(m for n, _, m in WARNINGS + MUTATIONS if n == name)(d)
+        got = V.validate(d, "Tablet")[kind]
+        line = next(w if kind else w[1] for w in got if "Lorebook" in (w if kind else w[1]))
+        cut = re.search(r"cut about (\d+) tokens \(~(\d+) characters\) to reach the fit target of 2024; largest trimmable entries: \w", line)
+        assert cut and int(cut.group(2)) == 4 * int(cut.group(1)) > 0, line
+    print("budget messages name the cut and the largest trimmable entries")
 
     assert V.validate(REF["lorebook"], lorebook=True)[0] == []
     with tempfile.TemporaryDirectory() as tmp:

@@ -266,18 +266,103 @@ Outcome: the session's model and effort control all three stages; the stub messa
 - Risks / rollback: a Haiku session gives a weaker bible; an Opus session costs more than 1.1.0. One stage can be pinned again through its `model:` line. Rollback: `git revert`, bump the version, update.
 
 **Phase 10 — Update the install and one live check.** Goal: confirm in a real run that model and effort follow the session.
-- [ ] User: `claude plugin marketplace update worldloom-local`, then `claude plugin update worldloom@worldloom-local`, then a new session (fallback: uninstall and install).
-- [ ] Confirm the cache copy is 1.2.0 and identical to the source.
-- [ ] User runs `/worldloom:worldloom` on a new premise from a Sonnet session at a chosen effort level, in the stories folder.
-- [ ] Record: model per stage; whether the three stage agents appear separately; no Store message; no `ls docs`; tokens per stage; validator result.
-- [ ] Effort: compare with the session setting. If stages do not follow it, stop and propose passing effort from the orchestrator.
-- [ ] Phase log and `docs/PROJECT.md`; commit and push.
+- [x] User: `claude plugin marketplace update worldloom-local`, then `claude plugin update worldloom@worldloom-local`, then a new session (fallback: uninstall and install).
+- [x] Confirm the cache copy is 1.2.0 and identical to the source.
+- [x] User runs `/worldloom:worldloom` on a new premise from a Sonnet session at a chosen effort level, in the stories folder.
+- [x] Record: model per stage; whether the three stage agents appear separately; no Store message; no `ls docs`; tokens per stage; validator result.
+- [x] Effort: compare with the session setting. If stages do not follow it, stop and propose passing effort from the orchestrator.
+- [x] Phase log and `docs/PROJECT.md`; commit and push.
 - Files: `docs/PROJECT.md`, this file.
 - Done when: a validated scenario from a 1.2.0 run, with the model per stage recorded.
 - Verify: an independent validator run on the new scenario; the three test files.
 - Risks / rollback: `marketplace update` from GitHub is untested; fallback is remove and re-add the marketplace. If inherit misbehaves, pin the models again and release 1.2.1.
 
 Not in this plan: purging the old commits on GitHub (the user's step); the lorebook fit target; Haiku trials; claude.ai upload tests.
+
+## 12. Budget loop, in-place critique, cast warning, Phases 11–13 (approved 2026-10-09)
+
+The first 1.2.0 run (`NovelAI Scenarios\worldloom-output\the-sixth-orb`, Scroll, Sonnet 5.5, effort medium) confirmed that stages follow the session's model and effort, but Stage 3 failed validation: lorebook ~3303 of 3300.
+
+Evidence from the stage transcripts:
+- Stage 3 builds went 4261 → 3696 → 3416 → 3303 tokens. The first draft was 29% over the cap, and every trim aimed at the cap, not the fit target (3036), so it crept up to the limit and ran out of attempts (four builds; the limit is three).
+- The validator says "over the cap" but not how much to cut.
+- The compiler rewrote the whole 23k-character `scenario_content.json` six times; its one `Edit` call failed because the agent has no Edit tool. Result: 102k tokens, 22 tool calls.
+- Core Memory was trimmed below its range (389, range 400–500), against the source's budget order.
+- The bible has six Main Cast on Scroll, which Stage 1 sizes around three. Nothing warned about it.
+- Stage 2 rewrote a 35k-character bible to change 12 lines (48k tokens).
+
+Outcome wanted: Stage 3 reaches the fit target within its three attempts, Stage 2 edits instead of rewriting, and a bible whose cast outgrows its tier is flagged before the compile. No stage rule text from `worldloom_source/` changes; every addition is a plugin note or a script message.
+
+### Phase 11 — Stage 3 budget loop (A)
+
+Goal: the compiler plans entry sizes before writing and trims to the fit target in one pass.
+
+Tasks
+- [x] Close Phase 10 in `PLAN.md` and `docs/PROJECT.md`: log the 1.2.0 run (models, effort, tokens per stage, the four builds, FAIL 15/16) and commit the pending ticks.
+- [x] `plugins/worldloom/skills/worldloom-compile/scripts/validate_scenario.py`, budget block (lines 326–338): the over-cap error and the over-fit warning each end with the cut needed to reach the fit target, in tokens and characters. For the lorebook, also name the three largest Tier 1/Tier 2 entries and the Glossary size, since those are trimmed first. The phrases `over the … cap of` and `over the fit target` stay, so existing tests keep matching.
+- [x] `tools/build_skills.py`, `compile_skill()`: plugin notes only.
+  - Before item 2: a budget plan. Fit target = cap × 0.92 (already in the source table). Reserve the always-on entries (Core Memory inside CM_RANGE, Voice Guard, Characters, Story So Far, Glossary), divide the rest among the Tier 1 and Tier 2 entries, and write each entry to its allowance (tokens × 4 = characters). Record the allowances in `notes.md`.
+  - Item 3: when a field is over the fit target, cut the amount the report names in one pass, to the fit target, not to the cap; follow the source's "Lorebook budget, in strict order"; never take Core Memory below CM_RANGE.
+  - Item 3: change `scenario_content.json` with targeted edits, not by writing the whole file again; write it in the output folder from the start.
+  - Regenerate with `python tools/build_skills.py`.
+- [x] `plugins/worldloom/agents/worldloom-compiler.md`: `tools: Read, Write, Edit, Bash`.
+- [x] `tests/test_scripts.py`: assert the cut amount appears in the over-fit warning and in the over-cap error (reuse the existing `set_text` mutation helper and the `WARNINGS` list).
+- [x] Plugin `README.md`, validator section: one sentence on the cut guidance.
+
+Files: `validate_scenario.py`, `tools/build_skills.py`, generated `worldloom-compile/SKILL.md`, `agents/worldloom-compiler.md`, `tests/test_scripts.py`, plugin `README.md`, `PLAN.md`, `docs/PROJECT.md`.
+
+Done when: the three test files pass; the validator run on `the-sixth-orb\The_Sixth_Orb.scenario --tier Scroll` prints a cut of about 267 tokens and names the largest entries; `test_verbatim.py` still shows zero exceptions.
+
+Verify: `python tests/test_scripts.py` · `python tests/test_verbatim.py` · `python tests/test_bible.py` · the validator on the failed scenario and on `worldloom_source/The_Quiet_Ledger.scenario` (reference must be unchanged apart from the new wording).
+
+Risks / rollback: longer plugin notes add a few hundred tokens to Stage 3's input. The plan is guidance; a model can still overshoot, but the report now gives the exact correction. Rollback: `git revert`.
+
+### Phase 12 — Stage 2 edits in place; cast-size warning (C, B)
+
+Goal: the critic changes only the lines it revises, and an oversized Main Cast is reported before Stage 3.
+
+Tasks
+- [ ] `tools/build_skills.py`, `critique()` OUTPUT FORMAT text: after writing `critique.md`, copy the bible file to `bible_v2.txt` with a shell copy, then apply each change with the edit tool; protected blocks are untouched by construction. With no shell or edit tool, write the complete revised bible as before. Same wording for RE-RUN (`bible_v3.txt`). Regenerate.
+- [ ] `plugins/worldloom/agents/worldloom-critic.md`: `tools: Read, Write, Edit, Bash`.
+- [ ] `plugins/worldloom/skills/worldloom/scripts/check_bible.py`: count the entities between the headings "3. Main Cast" and "4. Supporting Cast & Antagonists" (reuse `parse()` and `SECTIONS`). When the count is above the tier's Main Cast size (Tablet 2, Scroll 3, Opus 4, from the P1 tier table), print one `WARN` line with the count, the tier and the next tier up. A warning never changes the exit code.
+- [ ] Orchestrator `SKILL.md`: a `WARN` line from the bible check does not stop the run; repeat it in the final report with the recompile command `/worldloom:worldloom-compile <bible path> TIER: <next tier>`.
+- [ ] `tests/test_bible.py`: a bible with one extra Main Cast entity gives a `WARN` and exit 0; the sample bible gives none.
+- [ ] Plugin `README.md`: bible-check section mentions the warning; "Where it works" note that Stage 2 now edits a copy.
+
+Files: `tools/build_skills.py`, generated `worldloom-critique/SKILL.md` and its `chat-mode.md`, `agents/worldloom-critic.md`, `check_bible.py`, orchestrator `SKILL.md`, `tests/test_bible.py`, plugin `README.md`.
+
+Done when: the three test files pass; `check_bible.py` on `the-sixth-orb\bible_v2.txt` prints the warning (6 Main Cast on Scroll) and exits 0; `check_bible.py … --against` still passes on all existing run folders.
+
+Verify: the three test files · `check_bible.py` on the-sixth-orb, the-withy-line and the sample bible.
+
+Risks / rollback: an edit-based revision can miss a change the critique lists; `check_bible.py --against` still guards cast and layout, and `critique.md` lists every change for comparison. The critic gains Bash, used only for the copy. Rollback: `git revert`.
+
+### Phase 13 — Release 1.3.0 and one live check
+
+Goal: confirm the changes in a real run.
+
+Tasks
+- [ ] `plugin.json` version `1.3.0`; root `README.md` if any figure changed; `python tools/package.py`; `claude plugin validate .` and `./plugins/worldloom`.
+- [ ] Memory files, real-name grep, one commit per phase already made; push.
+- [ ] Update the install with the bundled `claude.exe` by full path (`plugin marketplace update worldloom-local`, `plugin update worldloom@worldloom-local`); confirm the cache copy is 1.3.0 and identical to the source.
+- [ ] User, new session: `/worldloom:worldloom-compile "…\the-sixth-orb\bible_v2.txt"` (Stage 3 alone, same bible, same tier), then one full run on any premise.
+- [ ] Record from the transcripts: number of builds, lorebook against fit target, Stage 3 tokens and tool calls (was 102k, 22), Stage 2 tokens and whether it edited (was 48k, full rewrite), the cast warning in the report.
+- [ ] Phase log, `docs/PROJECT.md`, commit and push.
+
+Files: `plugin.json`, `README.md`, `docs/*`, `PLAN.md`.
+
+Done when: Stage 3 on the-sixth-orb passes 16/16 within three builds; numbers recorded.
+
+Verify: independent `validate_scenario.py` run on the new scenario; the three test files.
+
+Risks / rollback: if Stage 3 still fails on six Main Cast at Scroll, report it and propose the next step (recompile at Opus tier, or a stricter plan); no fix inside this phase. Rollback to 1.2.0: `git revert` the three commits, bump, update.
+
+### Not in this plan
+
+- A script-enforced attempt counter and a tolerance on the cap (both advised against in the report).
+- Trimming the-sixth-orb by hand; Phase 13 recompiles it instead.
+- Deleting the leftover `the-sixth-light` folder (the user's stories folder).
+- Purging old commits on GitHub; claude.ai upload tests.
 
 ## Phase log
 
@@ -291,3 +376,5 @@ Not in this plan: purging the old commits on GitHub (the user's step); the loreb
 - 2026-10-09 — Phase 7 done. `build_scenario.py --validate [--tier T]` builds, validates through `validate_scenario.validate` and `report`, writes `validation.txt` beside the built file, prints the report and exits with the validator's code; the two separate commands still work. `tools/build_skills.py`: the compile skill's plugin-added steps 3 and 4 are now one build-and-validate command, the skill uses a `Python: <path>` line from the task when given, `notes.md` is written last with its numbers copied from the `INFO` lines, and the LOREBOOK and RECOUNT variants name the one command; regenerated, `tests/test_verbatim.py` passes with zero exceptions. Orchestrator skill: a "Finding Python" step (`python`, `python3`, `py -3`, then `%LOCALAPPDATA%\Programs\Python\Python3*`), a `Python:` line in the Stage 3 task, a not-validated statement when none is found, and the resume command in the report. `agents/worldloom-compiler.md` uses the given interpreter. `plugin.json` is 1.1.0; README updated; `dist/` rebuilt (plugin zip 19 files) with the old plugin zip kept as `worldloom-plugin-1.0.0.zip`. Verify: all three test files pass (a `--validate` case added: exit 0 and exit 1); `claude plugin validate .` and `./plugins/worldloom` pass; the one command on the Test D content file gives PASS 16/16 with the fit-target warning. Change from plan: a run made to fix warnings counts toward the three attempts, and a pass with warnings left is a pass (the plan did not say). Not tested: the orchestrator's interpreter search and the compiler's use of the `Python:` line in a live run (Phase 8); only the bash lookup command was run by hand. Deferred: none.
 - 2026-10-09 — Phase 8 done. `installed_plugins.json` shows `worldloom@worldloom-local` 1.1.0 and `diff -rq` finds the cache copy identical to the source (the user's update worked; which command they used is not recorded). Full run on a new premise, `worldloom-output/the-withy-line/`, Tablet, no Python path given by hand: the orchestrator's search took `python` (3.12.10; `python3` is still the Store stub) and passed `Python: python` to Stage 3. Stage 1 Opus 43.4k tokens, 6 tool uses, 273 s; `check_bible.py` PASS 1/1. Stage 2 Sonnet 44.3k, 5 tool uses, 127 s; `--against` PASS 2/2. Stage 3 Sonnet 83.3k, 15 tool uses, 260 s; PASS 16/16 with 1 warning, confirmed by an independent validator run; all eight files present. Run total about 171k tokens. Against Phase 4 run B (43.6k / 49.2k / 86.5k, 21 tool uses, 306 s, total about 179k): Stage 3 saved 6 tool uses and 46 s but only about 3k tokens, because the compiler now spends its three builds fixing warnings instead of stopping at the first pass. No Prologue warning is left, so the last-spoken-line fault seen in three Phase 4 files did not survive this run. The one warning left is the lorebook at about 2,193 of 2,200, over the 2,024 fit target: the compiler reported it stopped because another fix would be a fourth build. The fit-target warning alone does not bring the lorebook down. All three test files pass. Deferred: none.
 - 2026-10-09 — Phase 9 done. The three agents now have `model: inherit`; none sets `effort`, so the session's effort should apply (the docs imply it; unconfirmed until Phase 10). `tests/test_verbatim.py` accepts `inherit`. The orchestrator's Python search is one loop that stops at the first interpreter printing `Python 3.` and hides the rest; on this machine it prints only `python` in bash and in PowerShell, with no Store message. Both READMEs describe the session-model behaviour, how to pin a stage, and the cost note; the 170k-token figure is labelled as measured with Opus/Sonnet/Sonnet. `plugin.json` is 1.2.0; local `dist/` rebuilt. Verify: three test files pass; `claude plugin validate .` and `./plugins/worldloom` pass. Also since Phase 8, outside any phase: the repository went to GitHub (`IIVICKII/WorldLoom`, one squashed commit), a root `README.md` and MIT `LICENSE` were added, and `Documents\CLAUDE.md` was renamed by the user so it no longer loads in sibling folders. Not tested: a live run on 1.2.0 (Phase 10). Deferred: none.
+- 2026-10-09 — Phase 10 done, with one criterion missed. The update commands failed for the user because `claude` is not on PATH; they were run with the bundled `claude.exe`, and the cache copy is 1.2.0 and identical to the source. Live run from a Sonnet 5.5 session at effort medium, Scroll tier, a 41.5k-character input (`NovelAI Scenarios/worldloom-output/the-sixth-orb`): the stage transcripts record `claude-sonnet-5-5` and effort `medium` for all three stages, so both inherit; three separate stage agents ran; no Store message and no stray `docs/` folder. Stage 1 72.8k tokens, 6 tool uses, 283 s; Stage 2 48.0k, 5, 141 s (a full rewrite of a 35k-character bible for 12 changed lines); Stage 3 102.3k, 22, 349 s. Both bible checks passed. Missed: the scenario is not validated, FAIL 15/16, lorebook about 3303 of the 3300 Scroll cap. Stage 3 built four times (limit three): 4261, 3696, 3416, 3303, each trim aimed at the cap; it rewrote the whole content file six times and its one Edit call failed for lack of the tool; Core Memory ended below its range (389). The bible has six Main Cast on Scroll. These findings are section 12. Deferred: none.
+- 2026-10-09 — Phase 11 done. `validate_scenario.py`: every over-cap error and over-fit warning now ends with "cut about N tokens (~M characters) to reach the fit target of F", and the lorebook line adds the four largest trimmable entries (keyed entries and the Glossary). `tools/build_skills.py`, compile skill, plugin notes only: a lorebook budget plan before any entry is written (write to the fit target, reserve the always-on entries, divide the rest into allowances); the whole cut in one pass down to the fit target, never Core Memory below its range; attempts counted as you go; the content file written in the output folder and changed by edits. `agents/worldloom-compiler.md` gains the Edit tool. `tests/test_scripts.py` asserts the cut text on an over-fit and an over-cap lorebook. On the failed run the validator now says: cut about 268 tokens, largest Odric 428, Venadriel Sylvandel 352, Tilda Quickfen 349, Ashkarra 333. The reference scenario's result is unchanged. Three test files pass; `test_verbatim.py` zero exceptions. Changes from plan: the hint lists four entries under "largest trimmable entries", not three under "trim first", because Main Cast entries are large but protected by the source's budget order; allowances are not recorded in `notes.md` (its lorebook plan already lists every entry's size). Not tested: a live Stage 3 run with the new notes (Phase 13). Deferred: none.

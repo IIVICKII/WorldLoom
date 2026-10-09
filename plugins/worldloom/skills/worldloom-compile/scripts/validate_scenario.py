@@ -6,6 +6,7 @@ Exit 0 when every check passes, 1 otherwise. Stdlib only, no network.
 import argparse
 import copy
 import json
+import math
 import re
 import sys
 from pathlib import Path
@@ -323,14 +324,21 @@ def validate(d, tier="Tablet", lorebook=False, info=None):
 
     # 16
     lb = sum(tokens(e.get("text", "")) for e, role in entries if role != "operator_reference")
+    # Where a lorebook cut can come from: the keyed entries and the Glossary, largest first.
+    sizes = sorted(((tokens(e.get("text", "")), e.get("displayName")) for e, role in entries
+                    if role and (role.startswith("tier") or role == "glossary")), reverse=True)
+    first = "; largest trimmable entries: " + ", ".join("%s ~%d" % (n, t) for t, n in sizes[:4]) if sizes else ""
     for label, got, cap in (("Author's Note", tokens(note), caps["AN"]), ("System Prompt", tokens(sp), caps["SP"]),
                             ("Lorebook (Operator Reference excluded)", lb, caps["LB"])):
         fit = round(cap * FIT)
         info.append("%s ~%d / %d (fit %d)" % (label, got, cap, fit))
+        over = math.ceil(got - fit)
+        cut = "; cut about %d tokens (~%d characters) to reach the fit target of %d%s" % (
+            over, over * 4, fit, first if label.startswith("Lorebook") else "")
         if got > cap:
-            err(16, "%s ~%d tokens, over the %s cap of %d" % (label, got, tier, cap))
+            err(16, "%s ~%d tokens, over the %s cap of %d%s" % (label, got, tier, cap, cut))
         elif got > fit:
-            warn("%s ~%d tokens, over the fit target of %d (cap %d)" % (label, got, fit, cap))
+            warn("%s ~%d tokens, over the fit target of %d (cap %d)%s" % (label, got, fit, cap, cut))
     info += ["  %s ~%d%s" % (e.get("displayName"), tokens(e.get("text", "")),
                              " (excluded)" if role == "operator_reference" else "") for e, role in entries]
     for e, role in entries:

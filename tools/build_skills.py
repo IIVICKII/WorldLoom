@@ -166,7 +166,13 @@ All output files go in the bible's folder (a pasted bible: ./worldloom-output/<s
 
 Before writing anything, read references/system-prompt-template.md and references/content-schema.md in full, on every compile.
 
-Order of work: write scenario_content.json (item 2), build and validate it (item 3), and write notes.md last (item 4). Item 1 says what notes.md holds.
+Order of work: plan the lorebook budget (below), write scenario_content.json (item 2), build and validate it (item 3), and write notes.md last (item 4). Item 1 says what notes.md holds.
+
+Plugin note, the lorebook budget plan. Do this before writing any entry, so the first build lands near the target instead of far over it:
+- The target is the tier's lorebook fit target from the table above, not LB_CAP. LB_CAP is the limit the validator fails on; the fit target is what you write to.
+- Reserve the always-on entries first: Core Memory at the middle of CM_RANGE, Voice Guard about 220, Characters about 150 to 200, Story So Far about 320, Glossary about 25 for each line. These are typical sizes, not rules; the INFO lines of the first report give the real ones.
+- Divide what is left among the Tier 1 and Tier 2 entries. Main Cast entries get the largest shares, Tier 2 entries the smallest. That share is each entry's allowance.
+- Write each entry to its allowance: one token is about four characters, so an allowance of 300 tokens is about 1,200 characters of entry text. When the allowances are too small for full entries, apply "Lorebook budget, in strict order" below while you write, not after the build.
 ''') + ["", notes[0].replace("1. NOTES", "1. notes.md")] + notes[1:] + text('''
 - "Import <Title>.scenario in NovelAI. It creates a new story."
 
@@ -174,7 +180,9 @@ Order of work: write scenario_content.json (item 2), build and validate it (item
 ''') + ["", once, ""] + text('''
 3. Build and validate, in one command: python "<skill folder>/scripts/build_scenario.py" "<output folder>/scenario_content.json" --validate --tier <tier>
 It writes "<Title>.scenario" and validation.txt beside the content file, prints the scenario path, then prints the validator's report. If the task names a Python interpreter ("Python: <path>"), use that path in place of "python". Otherwise, if "python" is not found or will not run, try "python3", then "py".
-Exit 0 is a pass. On exit 1, read the FAIL lines of the report, fix scenario_content.json, then build and validate again. Fix the content only: never edit the built file, the scripts, or the fixed blocks, and never break a rule in this document to satisfy a check. At most three build-and-validate attempts; after the third failure, stop. Read the WARN lines on a pass and fix any that point at a real fault; a run made to fix warnings counts as an attempt, and a pass with warnings left is still a pass.
+Exit 0 is a pass. On exit 1, read the FAIL lines of the report, fix scenario_content.json, then build and validate again. Fix the content only: never edit the built file, the scripts, or the fixed blocks, and never break a rule in this document to satisfy a check. At most three build-and-validate attempts; after the third failure, stop. Count the attempts as you go: the third run of this command is the last. Read the WARN lines on a pass and fix any that point at a real fault; a run made to fix warnings counts as an attempt, and a pass with warnings left is still a pass.
+A budget line in the report ends with the cut it needs, "cut about N tokens (~M characters) to reach the fit target", and for the lorebook names the largest trimmable entries. Make that whole cut in one pass, down to the fit target: never trim only as far as the cap, and never in small steps over several builds. Take it from those entries by "Lorebook budget, in strict order" below, and never take Core Memory below CM_RANGE.
+Write scenario_content.json in the output folder from the start. To change it after a build, edit only the strings that change when you have an edit tool; write the whole file again only when you have none.
 
 4. Now write notes.md, as item 1 describes. Copy the three numbers of its Estimated line, and the tokens of each entry in the lorebook plan, from the INFO lines of the last report; never estimate them by hand.
 
