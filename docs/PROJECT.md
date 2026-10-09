@@ -1,5 +1,5 @@
 # Worldloom
-Last updated: 2026-10-09 · Current phase: no active plan (PLAN.md Phases 0-13 done)
+Last updated: 2026-10-09 · Current phase: PLAN.md Phase 14 (Stage 2 safer edits and one repair) done; Phase 15 (no folder overwrite, Stage 3 per-entry targets) next
 
 ## What it is
 Worldloom turns a story premise into a NovelAI (GLM-4.6) `.scenario` file through three stages: Story Bible, editorial critique, config compile. It ran as three Claude Projects joined by copy-paste. This repo repackages it as one Claude plugin (`plugins/worldloom`) with a local marketplace at the repo root.
@@ -27,11 +27,11 @@ See PLAN.md section 1 for the full tree.
 ## Current state
 - Works: builder and validator (`tests/test_scripts.py` passes: 33 error mutations, 13 warning cases); validator report with `INFO` budget lines and heuristic warnings; `check_bible.py` (`tests/test_bible.py` passes); plugin tree (`tests/test_verbatim.py` passes, zero exceptions). Live 1.1.0 run `worldloom-output/the-withy-line/`: the orchestrator found Python itself, both bible checks ran and passed, Stage 3 ended PASS 16/16 with 1 warning. Earlier 1.0.0 runs: `the-clock-at-obermoos/`, `the-kettle-post/`, `test-a-sonnet/`, `test-a2-haiku/`.
 - In progress: none.
-- Installed: `worldloom@worldloom-local` 1.3.0, user scope, registered from the local WorldLoom folder (not GitHub) on this machine. Cache copy identical to the source. Update with the bundled `claude.exe` by full path (`claude` is not on PATH): `plugin marketplace update worldloom-local`, then `plugin update worldloom@worldloom-local`.
-- Known issues (1.3.0 live runs, see the Phase 13 log): Stage 2's copy-and-edit can delete a neighbouring field line; the revision check catches it and the run stops with no repair attempt. A second run whose title gives the same slug overwrites the first run's folder. Stage 3's first draft still lands well over the lorebook cap (23% on six Main Cast at Scroll) and it can exceed three builds; it passed from build 3. Stage 3 as a subagent with the Edit tool is untested. Token counts are characters ÷ 4. Old commits with the former username are reachable by hash on GitHub until the repo is recreated.
+- Installed: `worldloom@worldloom-local` 1.3.0, user scope, registered from the local WorldLoom folder (not GitHub) on this machine. The source is ahead of it (Phase 14); it updates in Phase 16. Update with the bundled `claude.exe` by full path (`claude` is not on PATH): `plugin marketplace update worldloom-local`, then `plugin update worldloom@worldloom-local`.
+- Known issues (1.3.0 live runs, see the Phase 13 log): Stage 2's copy-and-edit can delete a neighbouring field line; the revision check catches it; from Phase 14 the critic gets one repair (in the source, not yet installed or proven live). A second run whose title gives the same slug overwrites the first run's folder. Stage 3's first draft still lands well over the lorebook cap (23% on six Main Cast at Scroll) and it can exceed three builds; it passed from build 3. Stage 3 as a subagent with the Edit tool is untested. Token counts are characters ÷ 4. Old commits with the former username are reachable by hash on GitHub until the repo is recreated.
 
 ## Next up
-No approved plan. Candidates: one Stage 2 repair attempt after a failed revision check; a fresh output folder when the slug exists; a firmer Stage 3 first-draft budget.
+PLAN.md section 13, Phase 15: the orchestrator tells Stage 1 which output folders exist; the validator prints a target size for each trimmable entry; compile notes forbid generator scripts. Then Phase 16: release 1.4.0 and one live full run.
 
 ## Conventions and gotchas
 - `worldloom_source/` is the source of truth. Stage rules carry over verbatim; every adaptation is listed in PLAN.md section 2.
@@ -59,4 +59,4 @@ No approved plan. Candidates: one Stage 2 repair attempt after a failed revision
 - `CLAUDE.md`.
 
 ## Handoff
-Done: Phases 0-13. 1.3.0 is released, pushed and installed. Stage 3 alone passed 16/16 on the six-lead Scroll bible; the full run stopped at Stage 2 because an edit deleted a `Wants:` line and the revision check failed. · Stopped at: end of Phase 13. · Next: the user picks which candidate fixes to plan. · Open questions: whether to compile six-lead stories at Opus tier by default advice; whether the critic may repair its own revision once.
+Done: Phases 0-14. 1.3.0 is released and installed. Phase 14 (checker names the missing field and its owner; critic REPAIR variant; one repair in the orchestrator) is committed locally, not pushed. · Stopped at: end of Phase 14, waiting for a yes on Phase 15. · Next: Phase 15, then Phase 16 (push, update install, live full run with the six-lead Scroll premise). · Open questions: whether six Main Cast is worth compiling at Scroll at all (Opus tier is the fallback).

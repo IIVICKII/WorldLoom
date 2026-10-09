@@ -17,7 +17,7 @@ Skip: worldloom-output/, dist/, __pycache__/
 - `tools/build_skills.py` — generates the three stage skills and their source-derived references from `worldloom_source/`; holds every adaptation
 - `tools/package.py` — builds `dist/worldloom-plugin.zip` and one zip per skill with `zipfile`
 - `tests/test_scripts.py` — stdlib asserts: reference passes, content round-trip, 33 mutations rejected, 13 warning cases, CLI exit codes
-- `tests/test_bible.py` — stdlib asserts for `check_bible.py`: sample bible passes, 11 mutations rejected, cast-size warning, run folders pass, CLI exit codes
+- `tests/test_bible.py` — stdlib asserts for `check_bible.py`: sample bible passes, 13 mutations rejected, cast-size warning, run folders pass, CLI exit codes
 - `tests/test_verbatim.py` — every source line is in the plugin; frontmatter, agent and manifest sanity
 
 ## plugins/worldloom/agents/

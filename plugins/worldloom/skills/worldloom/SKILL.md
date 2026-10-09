@@ -40,10 +40,10 @@ Spawn one subagent per stage, one at a time, each in a fresh context. Give each 
    - `--pause`: print the bible path, say "continue" resumes the run, and stop. On "continue", go on from Stage 2 with that path.
 2. Stage 2, `worldloom:worldloom-critic`, unless `--skip-critique`. Task message: the path of `bible_v1.txt`, nothing else. No premise, no notes from Stage 1, no opinion of yours: the critic must meet the bible cold.
    - Reply starts `REJECTED:`: show the user that line and stop.
-   - Otherwise check the revision: `check_bible.py "<bible_v2.txt>" --against "<bible_v1.txt>"`. Exit 1 means the critic changed the cast list or the field layout, which Stage 2 forbids: show the user its FAIL lines and stop. Say the two ways on: run `worldloom-critique` on `bible_v1.txt` again, or compile `bible_v1.txt` as it is with `worldloom-compile`.
+   - Otherwise check the revision: `check_bible.py "<bible_v2.txt>" --against "<bible_v1.txt>"`. Exit 1 means the critic changed the cast list or the field layout, which Stage 2 forbids. Give the critic one repair: spawn `worldloom:worldloom-critic` again with a task message of exactly four parts, the line `REPAIR`, the path of `bible_v2.txt`, the path of `bible_v1.txt`, and the FAIL lines as printed. Then run the same check again. Exit 0: go on to Stage 3 and say in the final report that the revision needed one repair. Exit 1 a second time: show the user the FAIL lines and stop. Say the two ways on: run `worldloom-critique` on `bible_v1.txt` again, or compile `bible_v1.txt` as it is with `worldloom-compile`.
 3. Stage 3, `worldloom:worldloom-compiler`. Task message: the path of `bible_v2.txt` (`bible_v1.txt` with `--skip-critique`), the `POV:` line when the user gave one, and the line `Python: <interpreter>` when you found one (the full path, or the command that worked).
 
-A stage that fails or returns something other than the replies above: report what it returned and stop. Never re-run a stage blindly, and never repair a stage's output yourself.
+A stage that fails or returns something other than the replies above: report what it returned and stop. Apart from the one Stage 2 repair above, never re-run a stage, and never repair a stage's output yourself.
 
 ### Checking a bible
 

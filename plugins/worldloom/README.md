@@ -91,7 +91,7 @@ The report also carries `INFO` lines with the measured budgets (Author's Note, S
 
 `skills/worldloom/scripts/check_bible.py BIBLE [--against ORIGINAL]`
 
-The full run checks the bible after Stage 1 and the revision after Stage 2, and stops if either fails. Alone, the script checks structure: the `TIER:` line, the seven section headings in order, one `Player Character:` line, no code fence, no banned name. With `--against`, it also checks that the revision kept the same named characters, factions and locations, the same Narrative Weight and Role for each, the same Player Character, and the same labelled fields in the same order. It prints names and labels only.
+The full run checks the bible after Stage 1 and the revision after Stage 2, and stops if either fails. A failed revision check first goes back to the critic once, with the failure lines, for a repair by edit; the run stops only if the check fails again. Alone, the script checks structure: the `TIER:` line, the seven section headings in order, one `Player Character:` line, no code fence, no banned name. With `--against`, it also checks that the revision kept the same named characters, factions and locations, the same Narrative Weight and Role for each, the same Player Character, and the same labelled fields in the same order; a missing or added field is named with the character or section it sits under. It prints names and labels only.
 
 A `WARN` line appears when the Main Cast is larger than the tier's lorebook budget assumes (Tablet 2, Scroll 3, Opus 4). It never fails the check and never stops the run: your cast always wins. The final report repeats it with the command to recompile at a larger tier.
 

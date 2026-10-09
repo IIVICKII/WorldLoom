@@ -108,13 +108,14 @@ Then the complete revised bible, written to bible_v2.txt as plain text with no c
 
 Inside the file: plain text, no markdown headers, bold, or italics; "-" bullets only; never a line made only of three or more -, *, or _; never four asterisks or three dashes; at most one blank line between blocks.
 
-Plugin note, how to produce bible_v2.txt. When you have a shell and an edit tool: copy the bible file to bible_v2.txt with a shell copy (cp, or Copy-Item in PowerShell), then make each change your critique lists with the edit tool, one edit for each changed passage. Never retype text you are not changing: the copy keeps every protected block exact. If the original has a code fence or lacks the TIER first line, correct that in the copy too. Every change in critique.md must be in the file, and the file must hold no change that critique.md does not list. With no shell or no edit tool, write the complete revised bible in one write instead.
+Plugin note, how to produce bible_v2.txt. When you have a shell and an edit tool: copy the bible file to bible_v2.txt with a shell copy (cp, or Copy-Item in PowerShell), then make each change your critique lists with the edit tool, one edit for each changed passage. Never retype text you are not changing: the copy keeps every protected block exact. Keep each edit inside one labelled field: the text you replace never runs past the end of its line into the next label, and no edit removes a labelled line or a section heading. When the last edit is done, the file has the same labelled lines, in the same order, as the original. If the original has a code fence or lacks the TIER first line, correct that in the copy too. Every change in critique.md must be in the file, and the file must hold no change that critique.md does not list. With no shell or no edit tool, write the complete revised bible in one write instead.
 
 Reply "OK" on the first line, then the critique path and the revised bible path, one per line, and nothing else. Never paste the critique or the bible into the reply.
 
 Variants:
 - CRITIQUE ONLY (or --critique-only) — write critique.md with the four-header critique and no revised bible.
 - RE-RUN — a second pass over a revision (bible_v2.txt). Write critique_rerun.md and bible_v3.txt. It should find markedly less; if the bible is sound, write "None found." under all four headers and write the bible out verbatim (a shell copy does it). Produce bible_v3.txt the same way as bible_v2.txt: copy, then edit.
+- REPAIR — the task gives the path of a revised bible, the path of the original it revises, and FAIL lines from the plugin's bible check. The revision lost or gained something the cast list and field layout forbid. Read both files. Restore only what the FAIL lines name, by edits to the revised bible: a missing labelled line comes back from the original, word for word unless a change listed in critique.md applies to it; an added one goes. Write no new critique and make no other change. Reply "OK" on the first line and the revised bible's path on the second.
 
 =====================================================================
 SELF-CHECK — fix silently, do not report

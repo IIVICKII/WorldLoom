@@ -33,7 +33,9 @@ MUTATIONS = [
     ("entity added in revision", "named entity added: The Counting House", swap("House Varlen\nNarrative Weight: Supporting", "House Varlen\nNarrative Weight: Supporting\nThe Counting House\nNarrative Weight: Background"), True),
     ("Narrative Weight changed", "Narrative Weight or Role changed for House Varlen", swap("House Varlen\nNarrative Weight: Supporting", "House Varlen\nNarrative Weight: Core"), True),
     ("Role changed", "Narrative Weight or Role changed for Perrin Ashgrove", swap("Role: Rival", "Role: Antagonist"), True),
-    ("labelled field removed", "labelled fields differ", swap("Logline:", "Summary:"), True),
+    ("labelled field removed", "labelled field missing from the revision: 'Logline' (under 1. Working Title", swap("Logline:", "Summary:"), True),
+    ("a character's field line deleted", "missing from the revision: 'Wants' (under Mira Fenlow, after ", swap("Wants: to be trusted with something that matters.\n", ""), True),
+    ("labelled field added", "labelled field added in the revision: 'Fears' (under Mira Fenlow, after 'Wants')", swap("Wants: to be trusted with something that matters.\n", "Wants: to be trusted with something that matters.\nFears: a second one.\n"), True),
     ("Player Character changed", "Player Character line changed", swap("Player Character: Mira Fenlow", "Player Character: Josselin Varlen"), True),
 ]
 

@@ -364,6 +364,84 @@ Risks / rollback: if Stage 3 still fails on six Main Cast at Scroll, report it a
 - Deleting the leftover `the-sixth-light` folder (the user's stories folder).
 - Purging old commits on GitHub; claude.ai upload tests.
 
+## 13. Stage 2 repair, no folder overwrite, Stage 3 targets, Phases 14–16 (approved 2026-10-09)
+
+From the 1.3.0 live runs: a one-line slip in Stage 2's edits stopped the run, a second run overwrote the first run's folder, and Stage 3 took six builds. No rule text from `worldloom_source/` changes.
+
+### Phase 14 — Stage 2: safer edits and one repair (D)
+
+Goal: a revision that breaks the layout is repaired once by the critic instead of ending the run.
+
+Tasks
+- [x] `plugins/worldloom/skills/worldloom/scripts/check_bible.py`, the `--against` label comparison: replace "differ at field N" with the labels missing from and added to the revision, each with the entity it sits under (the nearest preceding name `parse()` already yields) and the label before it. Use `difflib.SequenceMatcher` on the two label lists (stdlib). Output stays names and labels only, no prose.
+- [x] `tools/build_skills.py`, `critique()`, plugin notes only:
+  - In "how to produce bible_v2.txt": an edit's old text stays inside one labelled field; it never includes a line break followed by another label; never remove a labelled line or a heading. After the last edit, the file has the same labelled lines as the original.
+  - New variant `REPAIR`: the task gives the revised bible, the original and the checker's FAIL lines. Read both, restore only what the FAIL lines name (a missing labelled line comes back from the original, adjusted only if a listed critique change touched it), by edits to the revised bible. No new critique, no other change. Reply "OK" and the path.
+  - Regenerate with `python tools/build_skills.py`.
+- [x] `plugins/worldloom/skills/worldloom/SKILL.md` (hand-written), Stage 2 step: on exit 1 from `--against`, spawn `worldloom:worldloom-critic` once more with the line `REPAIR`, the two paths and the FAIL lines, then run the check again. A second exit 1 stops the run as today. The rule "never repair a stage's output yourself" stays; reword "never re-run a stage blindly" to allow this one named repair. Report says when a repair was needed. "Without subagents" section already allows one self-correction; no change there.
+- [x] `plugins/worldloom/agents/worldloom-critic.md`: one line, a task starting `REPAIR` follows the skill's REPAIR variant.
+- [x] `tests/test_bible.py`: delete one `Wants:` line from the sample bible; assert the FAIL names `Wants` and the character it belongs to. Update the existing field-order assertions to the new wording.
+- [x] Plugin `README.md`, bible-check section: one sentence on the repair attempt.
+
+Files: `check_bible.py`, `tools/build_skills.py`, generated `worldloom-critique/SKILL.md`, orchestrator `SKILL.md`, `agents/worldloom-critic.md`, `tests/test_bible.py`, plugin `README.md`.
+
+Done when: the three test files pass; `check_bible.py --against` on the failed pair in `NovelAI Scenarios\worldloom-output\the-sixth-orb` (`bible_v2.txt` against `bible_v1.txt`) names the missing `Wants` line and its character and exits 1; the-withy-line still passes.
+
+Verify: `python tests/test_bible.py` · `python tests/test_verbatim.py` · `python tests/test_scripts.py` · the checker on the two run folders.
+
+Risks / rollback: the repair pass sees the original bible, so the critic is no longer "cold" there; it is limited to the named lines and the check runs again after it. Rollback: `git revert`.
+
+### Phase 15 — No folder overwrite; Stage 3 per-entry targets (E, F)
+
+Goal: Stage 1 never writes into a used folder, and Stage 3's report tells it the size each entry must become.
+
+Tasks
+- [ ] Orchestrator `SKILL.md`, before Stage 1: list the folder names under `<cwd>/worldloom-output` (one `ls`; none when the folder is absent) and add one line to the Stage 1 task message after the output root: `Folders in use: a, b, c`. The input block itself is still passed unchanged.
+- [ ] `plugins/worldloom/agents/worldloom-architect.md` step 3 and the bible skill's "Where the files go" note (`tools/build_skills.py` line 78): when the slug is in the "Folders in use" list, write to `<slug>-2`, then `<slug>-3`; never write into a listed folder. The existing read-first-line rule stays for single-stage use.
+- [ ] `plugins/worldloom/skills/worldloom-compile/scripts/validate_scenario.py`, budget block: when the lorebook is over the fit target, add one line after the cut text listing every trimmable entry (keyed entries and the Glossary, the same set `sizes` already holds) with a target size in tokens and characters. Target = current size × (fit − untrimmable total) ÷ (trimmable total), rounded down. Label it "one split that reaches the fit target"; the order of what to remove stays the source's "Lorebook budget, in strict order".
+- [ ] `tools/build_skills.py`, `compile_skill()`, plugin notes only:
+  - Budget plan: write the allowance of every entry into the plan as tokens and characters before writing any entry text; when a Main Cast allowance comes out under about 300 tokens, leave out of the first draft the fields "Lorebook budget, in strict order" removes first.
+  - Item 2: write `scenario_content.json` with the write tool, directly in the output folder; never write a script that generates or patches it.
+  - Item 3: after an over-budget report, bring every listed entry to its listed target in the same pass; the second build should be at or under the fit target. A pass whose only warning is the lorebook fit target is finished: do not spend a build to clear it after the third.
+  - Regenerate.
+- [ ] `tests/test_scripts.py`: in the existing "lorebook over fit target" and "over cap" cases assert the per-entry target line is present and that the targets plus the untrimmable total do not exceed the fit target.
+- [ ] Plugin `README.md`: validator section, one sentence on per-entry targets; "Run it" section, one sentence that an existing folder is never reused.
+
+Files: orchestrator `SKILL.md`, `agents/worldloom-architect.md`, `tools/build_skills.py`, generated `worldloom-bible/SKILL.md` and `worldloom-compile/SKILL.md`, `validate_scenario.py`, `tests/test_scripts.py`, plugin `README.md`.
+
+Done when: the three test files pass; `worldloom_source/The_Quiet_Ledger.scenario` validates exactly as before (it is under its fit target, so no new line); a mutated over-budget copy prints targets that sum to the fit target or less.
+
+Verify: the three test files · the validator on `The_Quiet_Ledger.scenario --tier Tablet` and on the Scroll scenario in the-sixth-orb.
+
+Risks / rollback: a proportional split can disagree with the strict trim order when one entry type should be cut first; the line says it is one possible split and the notes keep the order rule in charge. The "Folders in use" line is extra text in the Stage 1 task; the architect is told it is not part of the input block and `input.txt` must not contain it. Rollback: `git revert`.
+
+### Phase 16 — Release 1.4.0 and one live full run
+
+Goal: confirm D, E and F in a real run, including Stage 3 as a subagent with the Edit tool (untested so far).
+
+Tasks
+- [ ] `plugin.json` version `1.4.0`; `python tools/package.py`; `claude plugin validate .` and `./plugins/worldloom` with the bundled `claude.exe`.
+- [ ] Memory files (`docs/CODEMAP.md` wording, `docs/PROJECT.md`, `PLAN.md` log), real-name grep, push.
+- [ ] Update the install (`plugin marketplace update worldloom-local`, `plugin update worldloom@worldloom-local`); confirm the cache copy is 1.4.0 and identical to the source.
+- [ ] User, new session in the stories folder: one full `/worldloom:worldloom` run with the same six-lead premise at Scroll (so the slug collides with `the-sixth-orb`).
+- [ ] Record from the transcripts: folder used (expect `the-sixth-orb-2`), whether a Stage 2 repair ran and its tokens, Stage 3 build count and lorebook per build, Stage 3 tool calls and whether it used Edit or scripts, final RESULT.
+- [ ] Phase log, `docs/PROJECT.md`, commit and push.
+
+Files: `plugin.json`, `docs/*`, `PLAN.md`.
+
+Done when: the run writes to a new folder, ends with a validated `.scenario`, and Stage 3 passes within three builds; numbers recorded. A miss on any of these is reported with the evidence, not fixed inside this phase.
+
+Verify: independent `validate_scenario.py` and `check_bible.py --against` on the new run folder; the three test files.
+
+Risks / rollback: six Main Cast at Scroll stays tight whatever the loop does; if entries are too thin the advice remains the Opus tier. Rollback to 1.3.0: `git revert` the phase commits, bump, update.
+
+### Not in this plan
+
+- A script-enforced attempt counter or a tolerance on the cap.
+- Letting the orchestrator edit a bible itself.
+- Changing tier budgets or any `worldloom_source/` rule.
+- Cleaning the existing `the-sixth-orb` folder (the user's stories folder); purging old GitHub commits; claude.ai upload tests.
+
 ## Phase log
 
 - 2026-10-08 — Phase 0 done. Python 3.12.10 installed per user with `winget install -e --id Python.Python.3.12 --source winget --scope user` (`--source winget` avoids the msstore agreement prompt). Created `docs/PROJECT.md`, `docs/CODEMAP.md`, `docs/DECISIONS.md`, `PLAN.md`. Deferred: none.
@@ -380,3 +458,4 @@ Risks / rollback: if Stage 3 still fails on six Main Cast at Scroll, report it a
 - 2026-10-09 — Phase 11 done. `validate_scenario.py`: every over-cap error and over-fit warning now ends with "cut about N tokens (~M characters) to reach the fit target of F", and the lorebook line adds the four largest trimmable entries (keyed entries and the Glossary). `tools/build_skills.py`, compile skill, plugin notes only: a lorebook budget plan before any entry is written (write to the fit target, reserve the always-on entries, divide the rest into allowances); the whole cut in one pass down to the fit target, never Core Memory below its range; attempts counted as you go; the content file written in the output folder and changed by edits. `agents/worldloom-compiler.md` gains the Edit tool. `tests/test_scripts.py` asserts the cut text on an over-fit and an over-cap lorebook. On the failed run the validator now says: cut about 268 tokens, largest Odric 428, Venadriel Sylvandel 352, Tilda Quickfen 349, Ashkarra 333. The reference scenario's result is unchanged. Three test files pass; `test_verbatim.py` zero exceptions. Changes from plan: the hint lists four entries under "largest trimmable entries", not three under "trim first", because Main Cast entries are large but protected by the source's budget order; allowances are not recorded in `notes.md` (its lorebook plan already lists every entry's size). Not tested: a live Stage 3 run with the new notes (Phase 13). Deferred: none.
 - 2026-10-09 — Phase 12 done. `tools/build_skills.py`, critique skill, plugin notes only: Stage 2 makes `bible_v2.txt` (and `bible_v3.txt` on RE-RUN) by a shell copy of the bible and one edit per changed passage, and writes the whole bible only when it has no shell or edit tool. The critic agent gained `Edit` and `Bash` (Bash for the copy only). `check_bible.py` prints one `WARN` line when the Main Cast is above the size the tier's budget assumes (Tablet 2, Scroll 3, Opus 4) and names the larger tiers; the exit code does not change. The orchestrator keeps the line for the final report with the recompile command. `tests/test_bible.py` covers the warning. Verified: three test files pass; `check_bible.py --against` on `the-sixth-orb` prints "Main Cast is 6; the Scroll lorebook budget assumes 3" and exits 0; `the-withy-line` and the sample bible pass with no warning. Unproven until the Phase 13 live run: that the critic really edits instead of rewriting. Deferred: none.
 - 2026-10-09 — Phase 13 done; the full run stopped at Stage 2. Released 1.3.0: packaged, both manifests validate, pushed (e89b7a6), install updated and identical to the source. Stage 3 alone on the `the-sixth-orb` bible (Scroll, six Main Cast, Sonnet 5.5, effort medium, run inline by the single-stage command, so the compiler agent was not exercised): lorebook went 4053, 3649, 3260, 3095, 3065, 3033 over six builds; 16/16 from build 3; final file PASS 16/16 with 0 warnings, lorebook 3033 against fit 3036, Core Memory 404. Against 1.2.0 (four builds, FAIL at 3303): the cut guidance was followed and Core Memory stayed in range, but the first draft was still 23% over the cap, the named cut was not made in one pass (613 asked, 389 cut), the run went past three attempts to clear a warning, and the content was produced by generator scripts in the scratchpad rather than by edits to `scenario_content.json`. Fitting six leads cost History, Clothing and some Mannerisms on five entries. Full run on a new premise (same slug, so it overwrote the bibles in that folder; the scenario there now belongs to the older bible): Stage 1 34.6k output tokens; the bible check printed the cast warning (6 on Scroll) and the report repeated it with the Opus hint; Stage 2 copied the bible and made 13 edits for 4.1k output tokens (1.2.0: full rewrite, about 48k total), but one edit that trimmed a Background sentence also deleted the following `Wants:` line, `check_bible.py --against` failed on it and the run stopped as designed. Stage 3 as a subagent with the Edit tool is still untested. Deferred, each needs its own plan: one repair attempt for Stage 2 when the revision check fails; a fresh folder when the slug already exists; a firmer first-draft budget and attempt limit in Stage 3.
+- 2026-10-09 — Phase 14 done. `check_bible.py --against` now names each labelled field missing from or added in the revision with the character or section it sits under and the label before it (`difflib.SequenceMatcher`, at most eight lines); on the failed 1.3.0 pair it prints "labelled field missing from the revision: 'Wants' (under Odalys of Quenmoor, after 'Background')" and exits 1. Critique skill, plugin notes only: an edit stays inside one labelled field and never removes a labelled line or heading; new REPAIR variant restores only what the FAIL lines name. The orchestrator gives the critic one repair after a failed revision check, checks again, and stops only on a second failure; the critic agent has a REPAIR line. `tests/test_bible.py` has two new mutations (13). Verified: three test files pass; the-withy-line still passes. Unproven until Phase 16: the repair in a live run. Deferred: none.

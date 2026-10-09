@@ -5,15 +5,16 @@ Exit 0 when every check passes, 1 otherwise. Prints PASS/FAIL lines with names a
 never bible prose. Stdlib only.
 """
 import argparse
+import difflib
 import re
 import sys
 from pathlib import Path
 
 SECTIONS = ["1. Working Title, Tags & Logline", "2. The World", "3. Main Cast", "4. Supporting Cast & Antagonists",
             "5. World State & Dramatic Situation", "6. Core Memory & Tone", "7. Generation Notes"]
-# Field labels the bible format defines. Other "Something: ..." lines are prose and are ignored.
 # P1's MAIN_CAST row: the cast size each tier's budget assumes.
 MAIN_CAST = {"Tablet": 2, "Scroll": 3, "Opus": 4}
+# Field labels the bible format defines. Other "Something: ..." lines are prose and are ignored.
 LABELS = ["Working Title", "Genres", "Logline", "Hard Rules", "Player Character", "Narrative Weight", "Role", "Age",
           "Gender", "Occupation", "Appearance", "Look", "Personality", "Background", "Wants", "Want", "Fears",
           "Reflex under pressure", "Source of friction", "Relationships at start", "Skills & Items", "Voice",
@@ -73,6 +74,21 @@ def cast_warnings(lines):
         else "Opus is the largest tier.")]
 
 
+def placed(lines):
+    """Each labelled field as "'Label' (under <entity or section heading>, after '<label before it>')"."""
+    out, owner, last = [], "the top of the file", None
+    for i, line in enumerate(lines):
+        if line in SECTIONS:
+            owner = line
+        elif i + 1 < len(lines) and lines[i + 1].startswith("Narrative Weight:"):
+            owner = line
+        m = LABEL.match(line)
+        if m:
+            out.append("%r (under %s, %s)" % (m.group(1), owner, "after %r" % last if last else "first field"))
+            last = m.group(1)
+    return out
+
+
 def revision(new, old):
     """new, old: results of parse(). The revision may change what is true, never who or what exists."""
     fails = []
@@ -89,9 +105,13 @@ def revision(new, old):
     if player(new[0]) != player(old[0]):
         fails.append("Player Character line changed")
     if labels != old_labels:
-        i = next((k for k, (a, b) in enumerate(zip(labels, old_labels)) if a != b), min(len(labels), len(old_labels)))
-        at = lambda seq: seq[i] if i < len(seq) else "end of file"
-        fails.append("labelled fields differ at field %d: original has %r, revision has %r" % (i + 1, at(old_labels), at(labels)))
+        was, now = placed(old[0]), placed(new[0])
+        diffs = []
+        for op, i1, i2, j1, j2 in difflib.SequenceMatcher(None, old_labels, labels, autojunk=False).get_opcodes():
+            if op != "equal":
+                diffs += ["labelled field missing from the revision: " + w for w in was[i1:i2]]
+                diffs += ["labelled field added in the revision: " + n for n in now[j1:j2]]
+        fails += diffs[:8] + (["and %d more labelled-field differences" % (len(diffs) - 8)] if len(diffs) > 8 else [])
     return fails
 
 
